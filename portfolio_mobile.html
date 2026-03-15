@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Portfolio Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg0: #080b12;
+  --bg1: #0e1420;
+  --bg2: #141c2e;
+  --bg3: #1c2640;
+  --bg4: #243050;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text1: #f0eee8;
+  --text2: #9aa3b8;
+  --text3: #5a6278;
+  --gold: #e8b84b;
+  --gold2: #f5d070;
+  --gold-dim: rgba(232,184,75,0.15);
+  --red: #ff5c5c;
+  --red2: #ff8080;
+  --red-dim: rgba(255,92,92,0.12);
+  --green: #3ddc84;
+  --green2: #70f0a0;
+  --green-dim: rgba(61,220,132,0.12);
+  --blue: #5b9cf6;
+  --blue2: #88bcff;
+  --blue-dim: rgba(91,156,246,0.12);
+  --orange: #ff8c42;
+  --orange-dim: rgba(255,140,66,0.12);
+  --tab-h: 82px;
+  --safe-top: env(safe-area-inset-top, 44px);
+  --safe-bot: env(safe-area-inset-bottom, 34px);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  width: 100%; height: 100%;
+  background: var(--bg0);
+  color: var(--text1);
+  font-family: 'Sora', sans-serif;
+  overflow: hidden;
+  position: fixed;
+}
+
+/* ── SCROLL CONTAINER ── */
+.screen {
+  display: none;
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  bottom: var(--tab-h);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding-top: calc(var(--safe-top) + 60px);
+  padding-bottom: 24px;
+}
+.screen.active { display: block; }
+
+/* ── TOP BAR ── */
+.topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: calc(var(--safe-top) + 8px) 20px 12px;
+  background: linear-gradient(to bottom, var(--bg0) 60%, transparent);
+}
+.topbar-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.topbar-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text1);
+  letter-spacing: -0.5px;
+}
+.topbar-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--gold);
+  letter-spacing: 2px;
+  margin-top: 2px;
+}
+.topbar-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+}
+
+/* ── BOTTOM TAB BAR ── */
+.tabbar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: var(--tab-h);
+  padding-bottom: var(--safe-bot);
+  background: rgba(14,20,32,0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  padding-top: 8px;
+  z-index: 200;
+}
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 4px 2px;
+  transition: opacity 0.15s;
+  -webkit-user-select: none;
+}
+.tab:active { opacity: 0.6; }
+.tab-icon {
+  width: 24px; height: 24px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  transition: transform 0.2s;
+}
+.tab.active .tab-icon { transform: scale(1.15); }
+.tab-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.5px;
+  color: var(--text3);
+  transition: color 0.15s;
+}
+.tab.active .tab-label { color: var(--gold); }
+
+/* ── SECTION PADDING ── */
+.px { padding: 0 16px; }
+.gap { height: 12px; }
+.gap-sm { height: 8px; }
+
+/* ── SECTION HEADER ── */
+.section-head {
+  padding: 0 16px;
+  margin-bottom: 10px;
+}
+.section-head h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text1);
+  letter-spacing: -0.3px;
+}
+.section-head p {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--text3);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+/* ── CARD ── */
+.card {
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  margin: 0 16px 12px;
+}
+.card-header {
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text1);
+}
+.card-body { padding: 14px 16px; }
+
+/* ── PILL BADGES ── */
+.pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.8px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+.pill-auto { background: var(--green-dim); color: var(--green); border: 1px solid rgba(61,220,132,0.3); }
+.pill-manual { background: var(--orange-dim); color: var(--orange); border: 1px solid rgba(255,140,66,0.3); }
+.pill-exit { background: var(--red-dim); color: var(--red); border: 1px solid rgba(255,92,92,0.3); }
+.pill-milestone { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(232,184,75,0.3); }
+.pill-passive { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(91,156,246,0.3); }
+
+/* ── KPI CARDS ── */
+.kpi-scroll {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 0 16px;
+  margin-bottom: 12px;
+}
+.kpi-card {
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 11px 12px;
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+}
+.kpi-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+}
+.kpi-gold::after { background: var(--gold); }
+.kpi-red::after { background: var(--red); }
+.kpi-green::after { background: var(--green); }
+.kpi-blue::after { background: var(--blue); }
+.kpi-orange::after { background: var(--orange); }
+.kpi-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px;
+  color: var(--text3);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.kpi-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--text1);
+}
+.kpi-value.red { color: var(--red); }
+.kpi-value.green { color: var(--green); }
+.kpi-value.gold { color: var(--gold); }
+.kpi-sub {
+  font-size: 9px;
+  color: var(--text3);
+  margin-top: 4px;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── FUND ROW ── */
+.fund-item {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.fund-item:last-child { border-bottom: none; }
+.fund-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+.fund-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text1);
+}
+.fund-amc {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--text3);
+  margin-top: 2px;
+}
+.fund-pnl {
+  text-align: right;
+}
+.fund-pnl-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+}
+.fund-pnl-pct {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  margin-top: 2px;
+}
+.bar-wrap {
+  position: relative;
+  height: 6px;
+  background: var(--bg3);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+}
+.invested-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--text3);
+  margin-top: 4px;
+}
+
+/* ── DONUT ── */
+.donut-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.legend-list { flex: 1; }
+.legend-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+}
+.legend-row:last-child { border-bottom: none; }
+.ldot {
+  width: 8px; height: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.lname {
+  flex: 1;
+  font-size: 11px;
+  color: var(--text2);
+}
+.lpct {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text1);
+  width: 32px;
+  text-align: right;
+}
+.lval {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  width: 44px;
+  text-align: right;
+}
+
+/* ── INFO BOX ── */
+.info-box {
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-top: 12px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text2);
+}
+.info-box.gold { background: var(--gold-dim); border: 1px solid rgba(232,184,75,0.25); }
+.info-box.green { background: var(--green-dim); border: 1px solid rgba(61,220,132,0.25); }
+.info-box.red { background: var(--red-dim); border: 1px solid rgba(255,92,92,0.25); }
+.info-box.blue { background: var(--blue-dim); border: 1px solid rgba(91,156,246,0.25); }
+.info-box.orange { background: var(--orange-dim); border: 1px solid rgba(255,140,66,0.25); }
+.info-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  margin-bottom: 6px;
+}
+
+/* ── STEP CARD ── */
+.step-card {
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+}
+.step-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+}
+.step-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text1);
+  margin-bottom: 4px;
+}
+.step-amount {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px;
+  font-weight: 500;
+  margin: 8px 0;
+}
+.step-detail {
+  font-size: 11px;
+  color: var(--text2);
+  line-height: 1.7;
+}
+
+/* ── TIMELINE ITEM ── */
+.tl-group { margin-bottom: 0; }
+.tl-group-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px 8px;
+}
+.tl-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  width: 80px;
+  flex-shrink: 0;
+}
+.tl-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.tl-event {
+  display: flex;
+  gap: 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+.tl-event:last-child { border-bottom: none; }
+.tl-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+.tl-text {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.6;
+  flex: 1;
+}
+.tl-text strong { color: var(--text1); }
+.tl-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ── COMPARE ROW ── */
+.compare-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.compare-cell {
+  background: var(--bg2);
+  border-radius: 10px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  text-align: center;
+}
+.compare-cell.highlight { border-color: rgba(61,220,132,0.3); background: var(--green-dim); }
+.compare-cell-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  color: var(--text3);
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+.compare-cell-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  font-weight: 500;
+}
+.compare-cell-sub {
+  font-size: 10px;
+  color: var(--text3);
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+/* ── TAX BAR ── */
+.tax-track {
+  height: 28px;
+  background: var(--bg3);
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 6px 0 4px;
+  position: relative;
+}
+.tax-fill {
+  height: 100%;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--bg0);
+  font-weight: 500;
+  transition: width 0.8s;
+}
+.tax-row-label {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  margin-bottom: 2px;
+}
+
+/* ── ACTION LIST ── */
+.action-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+.action-item:last-child { border-bottom: none; }
+.action-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--gold);
+  width: 60px;
+  flex-shrink: 0;
+  padding-top: 2px;
+  line-height: 1.5;
+}
+.action-icon {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.ai-auto { background: var(--green-dim); }
+.ai-manual { background: var(--orange-dim); }
+.ai-oneoff { background: var(--blue-dim); }
+.ai-exit { background: var(--red-dim); }
+.action-content { flex: 1; }
+.action-title {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text1);
+  margin-bottom: 2px;
+}
+.action-sub {
+  font-size: 11px;
+  color: var(--text3);
+  line-height: 1.5;
+}
+
+/* ── SIP TABLE ── */
+.sip-table { width: 100%; }
+.sip-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 8px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.sip-row:last-child { border-bottom: none; }
+.sip-row-head {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 8px;
+  align-items: center;
+  padding: 6px 0 8px;
+  border-bottom: 1px solid var(--border2);
+}
+.sip-head-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  color: var(--text3);
+  letter-spacing: 1px;
+}
+.sip-year {
+  font-size: 12px;
+  color: var(--text2);
+}
+.sip-amt {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text1);
+  font-weight: 500;
+  text-align: right;
+}
+.sip-total {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--gold);
+  font-weight: 500;
+  text-align: right;
+}
+
+/* ── MONTH GRID (BAF depletion) ── */
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(6,1fr);
+  gap: 6px;
+  margin: 10px 0;
+}
+.month-cell {
+  text-align: center;
+}
+.month-bar-wrap {
+  height: 40px;
+  background: var(--bg3);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 3px;
+}
+.month-bar-fill {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  border-radius: 3px;
+  transition: height 0.8s;
+}
+.month-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5px;
+  color: var(--text3);
+}
+.month-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px;
+  color: var(--gold);
+}
+
+/* ── PHASE SELECTOR ── */
+.phase-selector {
+  display: flex;
+  gap: 8px;
+  padding: 0 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-bottom: 12px;
+}
+.phase-selector::-webkit-scrollbar { display: none; }
+.phase-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.8px;
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--bg1);
+  color: var(--text3);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.2s;
+  -webkit-user-select: none;
+}
+.phase-btn.active {
+  background: var(--gold);
+  color: var(--bg0);
+  border-color: var(--gold);
+  font-weight: 600;
+}
+
+/* ── PHASE CONTENT ── */
+.phase-content { display: none; }
+.phase-content.active { display: block; }
+
+/* ── DIVIDER ── */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 12px 16px;
+}
+
+/* ── SUMMARY ROW ── */
+.sum-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.sum-row:last-child { border-bottom: none; }
+.sum-label { font-size: 12px; color: var(--text2); }
+.sum-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text1);
+}
+.sum-val.green { color: var(--green); }
+.sum-val.red { color: var(--red); }
+.sum-val.gold { color: var(--gold); }
+
+/* ── ANIMATE IN ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.card, .kpi-card, .step-card {
+  animation: fadeUp 0.35s ease both;
+}
+
+/* ── PASSWORD GATE ── */
+#gate {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--bg0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 32px;
+  padding-top: calc(var(--safe-top) + 40px);
+  padding-bottom: calc(var(--safe-bot) + 40px);
+}
+.gate-logo {
+  width: 64px; height: 64px;
+  border-radius: 18px;
+  background: var(--gold-dim);
+  border: 1px solid rgba(232,184,75,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+  margin-bottom: 28px;
+}
+.gate-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text1);
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+  text-align: center;
+}
+.gate-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 2px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+.gate-input-wrap {
+  width: 100%;
+  max-width: 320px;
+  position: relative;
+  margin-bottom: 14px;
+}
+#gate-input {
+  width: 100%;
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  padding: 16px 52px 16px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text1);
+  letter-spacing: 4px;
+  text-align: center;
+  outline: none;
+  -webkit-appearance: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  caret-color: var(--gold);
+}
+#gate-input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(232,184,75,0.15);
+}
+#gate-input.error {
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px rgba(255,92,92,0.15);
+  animation: shake 0.4s ease;
+}
+.gate-toggle {
+  position: absolute;
+  right: 16px; top: 50%;
+  transform: translateY(-50%);
+  background: none; border: none;
+  color: var(--text3);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px;
+  -webkit-tap-highlight-color: transparent;
+}
+#gate-btn {
+  width: 100%;
+  max-width: 320px;
+  background: var(--gold);
+  color: var(--bg0);
+  border: none;
+  border-radius: 14px;
+  padding: 16px;
+  font-family: 'Sora', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  -webkit-tap-highlight-color: transparent;
+}
+#gate-btn:active { opacity: 0.85; transform: scale(0.98); }
+#gate-error {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--red);
+  margin-top: 12px;
+  letter-spacing: 0.5px;
+  opacity: 0;
+  transition: opacity 0.2s;
+  text-align: center;
+}
+#gate-error.show { opacity: 1; }
+.gate-footer {
+  position: absolute;
+  bottom: calc(var(--safe-bot) + 20px);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--text3);
+  letter-spacing: 1px;
+  text-align: center;
+}
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+}
+@keyframes gateOut {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(1.04); }
+}
+.gate-out {
+  animation: gateOut 0.3s ease forwards;
+  pointer-events: none;
+}
+/* Hide app until unlocked */
+#app { display: none; }
+#app.unlocked { display: block; }
+</style>
+</head>
+<body>
+
+<!-- ══ PASSWORD GATE ══ -->
+<div id="gate">
+  <div class="gate-logo">📊</div>
+  <div class="gate-title">Portfolio Plan</div>
+  <div class="gate-sub">PRIVATE · ENTER PASSWORD TO CONTINUE</div>
+  <div class="gate-input-wrap">
+    <input id="gate-input" type="password" inputmode="numeric" pattern="[0-9]*"
+      placeholder="••••••" maxlength="10" autocomplete="off"
+      onkeydown="if(event.key==='Enter')checkPwd()">
+    <button class="gate-toggle" onclick="togglePwd()" id="eye-btn" type="button">👁</button>
+  </div>
+  <button id="gate-btn" onclick="checkPwd()">Unlock Dashboard</button>
+  <div id="gate-error">Incorrect password. Try again.</div>
+  <div class="gate-footer">APR 2026 – JUL 2028 · REBALANCING PLAN</div>
+</div>
+
+<!-- ══ APP (hidden until unlocked) ══ -->
+<div id="app">
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div>
+      <div class="topbar-title" id="topbar-title">Portfolio Plan</div>
+      <div class="topbar-sub" id="topbar-sub">APR 2026 – JUL 2028</div>
+    </div>
+    <div class="topbar-badge">AGE 39</div>
+  </div>
+</div>
+
+<!-- ══════════════════════ SCREEN: OVERVIEW ══ -->
+<div class="screen active" id="screen-overview">
+
+  <!-- KPI grid: 2 rows, 3 cols. 5 cards = row1 full, row2 last card spans 1 normally -->
+  <div class="kpi-scroll">
+    <div class="kpi-card kpi-red">
+      <div class="kpi-label">PORTFOLIO NOW</div>
+      <div class="kpi-value red">₹9.69L</div>
+      <div class="kpi-sub">Invested ₹10.94L</div>
+    </div>
+    <div class="kpi-card kpi-red">
+      <div class="kpi-label">UNREALISED LOSS</div>
+      <div class="kpi-value red">−₹1.25L</div>
+      <div class="kpi-sub">−11.4% overall</div>
+    </div>
+    <div class="kpi-card kpi-gold">
+      <div class="kpi-label">BAF AMMO</div>
+      <div class="kpi-value gold">₹3.29L</div>
+      <div class="kpi-sub">12mo deploy</div>
+    </div>
+    <div class="kpi-card kpi-green" style="grid-column:span 2">
+      <div class="kpi-label">EST. CORPUS JUL 2028</div>
+      <div class="kpi-value green">₹20.6L</div>
+      <div class="kpi-sub">Post FD1 deployment</div>
+    </div>
+    <div class="kpi-card kpi-blue">
+      <div class="kpi-label">TOTAL ACTIONS</div>
+      <div class="kpi-value">16</div>
+      <div class="kpi-sub">12 + 4 one-off</div>
+    </div>
+  </div>
+
+  <!-- Fund status -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Fund Status · Mar 2026</span>
+      <span class="pill pill-exit">CURRENT</span>
+    </div>
+    <div class="card-body">
+      <!-- Midcap -->
+      <div class="fund-item">
+        <div class="fund-top">
+          <div>
+            <div class="fund-name">Midcap Fund</div>
+            <div class="fund-amc">Motilal Oswal · Active</div>
+          </div>
+          <div class="fund-pnl">
+            <div class="fund-pnl-val" style="color:var(--red)">−₹1.06L</div>
+            <div class="fund-pnl-pct">−19.6%</div>
+          </div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-fill" style="width:80.4%;background:linear-gradient(90deg,#c0392b,#ff5c5c)"></div>
+        </div>
+        <div class="invested-labels"><span>₹4.36L current</span><span>₹5.42L invested</span></div>
+      </div>
+      <!-- BAF -->
+      <div class="fund-item">
+        <div class="fund-top">
+          <div>
+            <div class="fund-name">BAF (Ammunition)</div>
+            <div class="fund-amc">Tata · Hybrid · DEPLOY THIS</div>
+          </div>
+          <div class="fund-pnl">
+            <div class="fund-pnl-val" style="color:var(--gold)">+₹2K</div>
+            <div class="fund-pnl-pct">+0.6%</div>
+          </div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-fill" style="width:100%;background:linear-gradient(90deg,#b8860b,#e8b84b)"></div>
+        </div>
+        <div class="invested-labels"><span>₹3.29L current</span><span>₹3.27L invested</span></div>
+      </div>
+      <!-- Smallcap -->
+      <div class="fund-item">
+        <div class="fund-top">
+          <div>
+            <div class="fund-name">Smallcap Fund</div>
+            <div class="fund-amc">Tata · Active</div>
+          </div>
+          <div class="fund-pnl">
+            <div class="fund-pnl-val" style="color:var(--red)">−₹27K</div>
+            <div class="fund-pnl-pct">−20.3%</div>
+          </div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-fill" style="width:79.7%;background:linear-gradient(90deg,#c05010,#ff8c42)"></div>
+        </div>
+        <div class="invested-labels"><span>₹1.06L current</span><span>₹1.33L invested</span></div>
+      </div>
+      <!-- ELSS -->
+      <div class="fund-item">
+        <div class="fund-top">
+          <div>
+            <div class="fund-name">ELSS · Exit Oct 2027</div>
+            <div class="fund-amc">Quant · Lock-in till Oct 27</div>
+          </div>
+          <div class="fund-pnl">
+            <div class="fund-pnl-val" style="color:var(--green)">+₹9K</div>
+            <div class="fund-pnl-pct">+15.8%</div>
+          </div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-fill" style="width:100%;background:linear-gradient(90deg,#1a7a3a,#3ddc84)"></div>
+        </div>
+        <div class="invested-labels"><span>₹66K current</span><span>₹57K invested</span></div>
+      </div>
+      <!-- Nifty50 -->
+      <div class="fund-item">
+        <div class="fund-top">
+          <div>
+            <div class="fund-name">Nifty50 Index</div>
+            <div class="fund-amc">UTI · SIP ₹5K/mo running</div>
+          </div>
+          <div class="fund-pnl">
+            <div class="fund-pnl-val" style="color:var(--red)">−₹3K</div>
+            <div class="fund-pnl-pct">−8.6%</div>
+          </div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-fill" style="width:91.4%;background:linear-gradient(90deg,#1a4a8c,#5b9cf6)"></div>
+        </div>
+        <div class="invested-labels"><span>₹32K current</span><span>₹35K invested</span></div>
+      </div>
+
+      <div class="info-box gold">
+        <div class="info-label" style="color:var(--gold)">⚡ STRATEGY</div>
+        BAF is flat — capital preserved. Deploy it into beaten-down midcap & smallcap over 12 months. Buy more units at lower prices now.
+      </div>
+    </div>
+  </div>
+
+  <!-- Target Jul 2028 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Target Allocation · Jul 2028</span>
+      <span class="pill pill-milestone">POST FD1</span>
+    </div>
+    <div class="card-body">
+      <div class="donut-section">
+        <svg width="110" height="110" viewBox="0 0 110 110" style="flex-shrink:0">
+          <circle cx="55" cy="55" r="40" fill="none" stroke="#1c2640" stroke-width="20"/>
+          <!-- Midcap 41% = 251.2 * 0.41 = 103 -->
+          <circle cx="55" cy="55" r="40" fill="none" stroke="#ff5c5c" stroke-width="20"
+            stroke-dasharray="103 251" stroke-dashoffset="0" transform="rotate(-90 55 55)"/>
+          <!-- Nifty50 34% = 85.3 -->
+          <circle cx="55" cy="55" r="40" fill="none" stroke="#5b9cf6" stroke-width="20"
+            stroke-dasharray="85 251" stroke-dashoffset="-103" transform="rotate(-90 55 55)"/>
+          <!-- Smallcap 13% = 32.6 -->
+          <circle cx="55" cy="55" r="40" fill="none" stroke="#ff8c42" stroke-width="20"
+            stroke-dasharray="33 251" stroke-dashoffset="-188" transform="rotate(-90 55 55)"/>
+          <!-- Midcap Idx 7% + BAF 5% = 30 -->
+          <circle cx="55" cy="55" r="40" fill="none" stroke="#3ddc84" stroke-width="20"
+            stroke-dasharray="18 251" stroke-dashoffset="-221" transform="rotate(-90 55 55)"/>
+          <circle cx="55" cy="55" r="40" fill="none" stroke="#e8b84b" stroke-width="20"
+            stroke-dasharray="13 251" stroke-dashoffset="-239" transform="rotate(-90 55 55)"/>
+          <text x="55" y="51" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="500" fill="#f0eee8">₹20.6L</text>
+          <text x="55" y="63" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#5a6278">CORPUS</text>
+        </svg>
+        <div class="legend-list">
+          <div class="legend-row"><div class="ldot" style="background:#ff5c5c"></div><div class="lname">Midcap (Motilal)</div><div class="lpct">41%</div><div class="lval">₹8.8L</div></div>
+          <div class="legend-row"><div class="ldot" style="background:#5b9cf6"></div><div class="lname">Nifty50 (UTI)</div><div class="lpct">34%</div><div class="lval">₹7.4L</div></div>
+          <div class="legend-row"><div class="ldot" style="background:#ff8c42"></div><div class="lname">Smallcap (Tata)</div><div class="lpct">13%</div><div class="lval">₹2.9L</div></div>
+          <div class="legend-row"><div class="ldot" style="background:#3ddc84"></div><div class="lname">Midcap150 Idx</div><div class="lpct">7%</div><div class="lval">₹1.4L</div></div>
+          <div class="legend-row"><div class="ldot" style="background:#e8b84b"></div><div class="lname">BAF (residual)</div><div class="lpct">5%</div><div class="lval">₹0.5L</div></div>
+        </div>
+      </div>
+      <div class="info-box blue" style="margin-top:12px">
+        <div class="info-label" style="color:var(--blue)">AUG 2028 · FD1 MATURITY</div>
+        ₹10L → Emergency Fund (liquid fund, kept separate)<br>₹3.58L → UTI Nifty50 lump sum → Nifty50 reaches ₹7.4L
+      </div>
+    </div>
+  </div>
+
+  <!-- Phase summary -->
+  <div class="section-head" style="margin-top:4px">
+    <h2>3 Phases</h2>
+    <p>Apr 2026 → Jul 2028</p>
+  </div>
+  <div class="card">
+    <div class="card-body" style="padding:0 16px">
+      <div class="sum-row">
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--text1)">Phase 1 · Apr 26 – Mar 27</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:2px">BAF → Midcap + Smallcap averaging</div>
+        </div>
+        <div style="text-align:right">
+          <div class="sum-val gold">₹3.0L</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3)">12 manual actions</div>
+        </div>
+      </div>
+      <div class="sum-row">
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--text1)">Phase 2 · Apr 27 – Sep 27</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:2px">New SIP structure begins</div>
+        </div>
+        <div style="text-align:right">
+          <div class="sum-val green">₹13.5K/mo</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3)">1 setup · then auto</div>
+        </div>
+      </div>
+      <div class="sum-row">
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--text1)">Phase 3 · Oct 27 – Jul 28</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:2px">ELSS exit → fully passive</div>
+        </div>
+        <div style="text-align:right">
+          <div class="sum-val" style="color:var(--blue)">2 txns</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3)">then zero actions</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ SCREEN: PHASES ══ -->
+<div class="screen" id="screen-phases">
+
+  <div class="section-head">
+    <h2>Action Plan</h2>
+    <p>Phase by phase breakdown</p>
+  </div>
+
+  <div class="phase-selector">
+    <button class="phase-btn active" onclick="showPhaseContent('p1',this)">PHASE 1</button>
+    <button class="phase-btn" onclick="showPhaseContent('p2',this)">PHASE 2</button>
+    <button class="phase-btn" onclick="showPhaseContent('p3',this)">PHASE 3</button>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="phase-content active" id="pc-p1">
+    <div class="kpi-scroll">
+      <div class="kpi-card kpi-gold"><div class="kpi-label">BAF START</div><div class="kpi-value gold">₹3.29L</div></div>
+      <div class="kpi-card kpi-red"><div class="kpi-label">MONTHLY OUT</div><div class="kpi-value red">₹25K</div><div class="kpi-sub">₹15K + ₹10K</div></div>
+      <div class="kpi-card kpi-orange"><div class="kpi-label">TOTAL DEPLOY</div><div class="kpi-value" style="color:var(--orange)">₹3.0L</div></div>
+      <div class="kpi-card kpi-gold" style="grid-column:span 3"><div class="kpi-label">BAF RESIDUAL · LEAVE AS BUFFER</div><div class="kpi-value gold">~₹40K</div></div>
+    </div>
+
+    <!-- Monthly actions -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Every Month · 5th & 8th</span>
+        <span class="pill pill-manual">MANUAL</span>
+      </div>
+      <div class="card-body" style="padding:12px 16px">
+        <div class="step-card" style="border-color:rgba(255,140,66,0.3);background:var(--orange-dim)">
+          <div class="step-num" style="color:var(--orange)">STEP 1 · 5TH OF MONTH</div>
+          <div class="step-title">Redeem from Tata BAF</div>
+          <div class="step-amount" style="color:var(--orange)">₹15,000</div>
+          <div class="step-detail">Log into Tata MF / CAMS app<br>Redeem ₹15K from BAF<br>Money in bank within 2–3 days</div>
+        </div>
+        <div class="step-card" style="border-color:rgba(255,92,92,0.3);background:var(--red-dim)">
+          <div class="step-num" style="color:var(--red)">STEP 2 · 8TH OF MONTH</div>
+          <div class="step-title">Invest into Motilal Midcap</div>
+          <div class="step-amount" style="color:var(--red)">₹15,000</div>
+          <div class="step-detail">Log into Motilal / MFCentral<br>Lump sum — Motilal Oswal Midcap Fund (Direct)<br>Same folio as existing holding</div>
+        </div>
+        <div class="step-card" style="border-color:rgba(61,220,132,0.3);background:var(--green-dim)">
+          <div class="step-num" style="color:var(--green)">AUTO · SET ONCE</div>
+          <div class="step-title">STP: BAF → Tata Smallcap</div>
+          <div class="step-amount" style="color:var(--green)">₹10,000</div>
+          <div class="step-detail">Set up in Tata MF portal — runs automatically on 5th each month. No further action needed.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BAF Depletion -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">BAF Depletion · 12 Months</span>
+        <span class="pill pill-manual">₹25K/MONTH</span>
+      </div>
+      <div class="card-body">
+        <div class="month-grid" id="baf-grid"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:4px">
+          <div style="background:var(--bg2);border-radius:8px;padding:10px;text-align:center">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--text3);margin-bottom:4px">TO SMALLCAP</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--orange)">₹1.2L</div>
+            <div style="font-size:9px;color:var(--text3)">Auto STP</div>
+          </div>
+          <div style="background:var(--bg2);border-radius:8px;padding:10px;text-align:center">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--text3);margin-bottom:4px">TO MIDCAP</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--red)">₹1.8L</div>
+            <div style="font-size:9px;color:var(--text3)">Manual</div>
+          </div>
+          <div style="background:var(--gold-dim);border-radius:8px;padding:10px;text-align:center;border:1px solid rgba(232,184,75,0.2)">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--gold);margin-bottom:4px">RESIDUAL</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--gold)">~₹40K</div>
+            <div style="font-size:9px;color:var(--text3)">Leave it</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Averaging impact -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Averaging Impact</span>
+        <span class="pill pill-passive">BEFORE vs AFTER</span>
+      </div>
+      <div class="card-body">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:1px;margin-bottom:8px">MIDCAP POSITION</div>
+        <div class="compare-row">
+          <div class="compare-cell">
+            <div class="compare-cell-label">BEFORE</div>
+            <div class="compare-cell-val" style="color:var(--red)">−19.6%</div>
+            <div class="compare-cell-sub">₹5.42L invested<br>₹4.36L current</div>
+          </div>
+          <div class="compare-cell highlight">
+            <div class="compare-cell-label" style="color:var(--green)">AFTER 12MO</div>
+            <div class="compare-cell-val" style="color:var(--green)">~−6%</div>
+            <div class="compare-cell-sub">₹7.22L invested<br>~₹6.5L est.</div>
+          </div>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:1px;margin-bottom:8px;margin-top:4px">SMALLCAP POSITION</div>
+        <div class="compare-row">
+          <div class="compare-cell">
+            <div class="compare-cell-label">BEFORE</div>
+            <div class="compare-cell-val" style="color:var(--red)">−20.3%</div>
+            <div class="compare-cell-sub">₹1.33L invested<br>₹1.06L current</div>
+          </div>
+          <div class="compare-cell highlight">
+            <div class="compare-cell-label" style="color:var(--green)">AFTER 12MO</div>
+            <div class="compare-cell-val" style="color:var(--green)">~−7%</div>
+            <div class="compare-cell-sub">₹2.53L invested<br>~₹2.3L est.</div>
+          </div>
+        </div>
+        <div class="info-box green" style="margin-top:8px">
+          A normal market quarter (~5–8% recovery) takes you to breakeven from averaged cost. More units = bigger recovery.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="phase-content" id="pc-p2">
+    <div class="kpi-scroll">
+      <div class="kpi-card kpi-green"><div class="kpi-label">NEW TOTAL SIP</div><div class="kpi-value green">₹13.5K</div><div class="kpi-sub">per month</div></div>
+      <div class="kpi-card kpi-blue"><div class="kpi-label">UTI NIFTY50</div><div class="kpi-value" style="color:var(--blue)">₹8K/mo</div><div class="kpi-sub">₹6K + ₹2K</div></div>
+      <div class="kpi-card kpi-green"><div class="kpi-label">MIDCAP150 IDX</div><div class="kpi-value green">₹5.5K</div><div class="kpi-sub">₹4K + ₹1.5K</div></div>
+      <div class="kpi-card kpi-gold" style="grid-column:span 3"><div class="kpi-label">ANNUAL STEP-UP ON ₹10K SIP</div><div class="kpi-value gold">5% / year</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Apr 1, 2027 — Setup</span>
+        <span class="pill pill-exit">CANCEL OLD SIP FIRST</span>
+      </div>
+      <div class="card-body" style="padding:12px 16px">
+        <div class="info-box red" style="margin-bottom:12px">
+          <div class="info-label" style="color:var(--red)">CANCEL FIRST · MAR 2027</div>
+          Stop existing ₹5,000/mo UTI Nifty50 SIP. Do this in March so it stops from Apr 1.
+        </div>
+
+        <div class="step-card" style="border-color:rgba(91,156,246,0.3);background:var(--blue-dim)">
+          <div class="step-num" style="color:var(--blue)">SIP 1 · ₹10,000 WITH 5% STEP-UP</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
+            <div style="background:var(--bg1);border-radius:8px;padding:10px;text-align:center">
+              <div style="font-size:10px;color:var(--text3);margin-bottom:4px">UTI Nifty50</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--blue)">₹6,000</div>
+              <div style="font-size:9px;color:var(--text3)">5% step-up/yr</div>
+            </div>
+            <div style="background:var(--bg1);border-radius:8px;padding:10px;text-align:center">
+              <div style="font-size:10px;color:var(--text3);margin-bottom:4px">Motilal Midcap150</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--green)">₹4,000</div>
+              <div style="font-size:9px;color:var(--text3)">5% step-up/yr</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-card" style="border-color:rgba(232,184,75,0.3);background:var(--gold-dim)">
+          <div class="step-num" style="color:var(--gold)">SIP 2 · ₹3,500 FIXED</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
+            <div style="background:var(--bg1);border-radius:8px;padding:10px;text-align:center">
+              <div style="font-size:10px;color:var(--text3);margin-bottom:4px">UTI Nifty50</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--blue)">₹2,000</div>
+              <div style="font-size:9px;color:var(--text3)">Fixed</div>
+            </div>
+            <div style="background:var(--bg1);border-radius:8px;padding:10px;text-align:center">
+              <div style="font-size:10px;color:var(--text3);margin-bottom:4px">Motilal Midcap150</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--green)">₹1,500</div>
+              <div style="font-size:9px;color:var(--text3)">Fixed</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box gold">
+          <div class="info-label" style="color:var(--gold)">NEW FUND NEEDED</div>
+          Motilal Nifty Midcap 150 Index Fund (Direct) — TER ~0.17%. New SIP mandate in your existing Motilal folio. Same KYC.
+        </div>
+      </div>
+    </div>
+
+    <!-- Step-up table -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Step-Up Schedule</span>
+        <span class="pill pill-auto">5% ANNUAL</span>
+      </div>
+      <div class="card-body">
+        <div class="sip-table">
+          <div class="sip-row-head">
+            <div class="sip-head-text">YEAR</div>
+            <div class="sip-head-text" style="text-align:right">NIFTY50</div>
+            <div class="sip-head-text" style="text-align:right">TOTAL/MO</div>
+          </div>
+          <div class="sip-row"><div class="sip-year">Apr 2027</div><div class="sip-amt">₹6,000</div><div class="sip-total">₹10,000</div></div>
+          <div class="sip-row"><div class="sip-year">Apr 2028</div><div class="sip-amt">₹6,300</div><div class="sip-total">₹10,500</div></div>
+          <div class="sip-row"><div class="sip-year">Apr 2029</div><div class="sip-amt">₹6,615</div><div class="sip-total">₹11,025</div></div>
+          <div class="sip-row"><div class="sip-year">Apr 2030</div><div class="sip-amt">₹6,946</div><div class="sip-total">₹11,577</div></div>
+          <div class="sip-row" style="border-top:1px solid var(--border2)"><div class="sip-year" style="color:var(--text3)">+ SIP 2</div><div class="sip-amt" style="color:var(--text3)">₹2,000</div><div class="sip-total" style="color:var(--text3)">₹3,500</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="phase-content" id="pc-p3">
+    <div class="kpi-scroll">
+      <div class="kpi-card kpi-red"><div class="kpi-label">TRANSACTIONS</div><div class="kpi-value red">2</div><div class="kpi-sub">One week apart</div></div>
+      <div class="kpi-card kpi-green"><div class="kpi-label">LTCG GAIN</div><div class="kpi-value green">~₹16K</div></div>
+      <div class="kpi-card kpi-green"><div class="kpi-label">TAX PAYABLE</div><div class="kpi-value green">₹0</div><div class="kpi-sub">Within limit</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">ELSS Exit · Oct 2027</span>
+        <span class="pill pill-exit">2 STEPS</span>
+      </div>
+      <div class="card-body" style="padding:12px 16px">
+        <div class="step-card" style="border-color:rgba(255,92,92,0.3);background:var(--red-dim)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <div class="step-num" style="color:var(--red)">TRANSACTION 1</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;background:var(--red);color:white;padding:2px 8px;border-radius:10px">OCT 1</div>
+          </div>
+          <div class="step-title">Redeem Quant ELSS</div>
+          <div class="step-amount" style="color:var(--red)">~₹73K</div>
+          <div class="step-detail">Full redemption — all units<br>Quant MF app / MFCentral<br>Money in bank in 2–3 days</div>
+        </div>
+
+        <div style="display:flex;justify-content:center;font-size:24px;color:var(--text3);padding:4px 0">↓</div>
+
+        <div class="step-card" style="border-color:rgba(91,156,246,0.3);background:var(--blue-dim)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <div class="step-num" style="color:var(--blue)">TRANSACTION 2</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;background:var(--blue);color:white;padding:2px 8px;border-radius:10px">OCT 7–8</div>
+          </div>
+          <div class="step-title">Invest → UTI Nifty50</div>
+          <div class="step-amount" style="color:var(--blue)">~₹73K</div>
+          <div class="step-detail">Full proceeds as lump sum<br>UTI Nifty50 Index — Direct Plan<br>Same folio as existing holding</div>
+        </div>
+
+        <div class="info-box green">
+          <div class="info-label" style="color:var(--green)">TAX CALCULATION</div>
+          Invested ₹57K · Redemption ~₹73K · LTCG ~₹16K<br>
+          Annual exemption ₹1,25,000 · Used: ₹16K · <strong style="color:var(--green)">Tax = ₹0</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Nov 2027 – Jul 2028</span>
+        <span class="pill pill-passive">FULLY PASSIVE</span>
+      </div>
+      <div class="card-body">
+        <div class="sum-row">
+          <div class="sum-label">₹8K/mo UTI Nifty50 SIP</div>
+          <div class="sum-val green">AUTO ✓</div>
+        </div>
+        <div class="sum-row">
+          <div class="sum-label">₹5.5K/mo Midcap150 Idx SIP</div>
+          <div class="sum-val green">AUTO ✓</div>
+        </div>
+        <div class="sum-row">
+          <div class="sum-label">Midcap · Smallcap holdings</div>
+          <div class="sum-val gold">HOLD ✓</div>
+        </div>
+        <div class="sum-row">
+          <div class="sum-label">BAF residual ~₹45K</div>
+          <div class="sum-val gold">LEAVE ✓</div>
+        </div>
+        <div class="info-box gold" style="margin-top:4px">
+          <div class="info-label" style="color:var(--gold)">NEXT TRIGGER</div>
+          Aug 2028 — FD1 matures. ₹10L → emergency fund. ₹3.58L → UTI Nifty50 lump sum.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ SCREEN: TIMELINE ══ -->
+<div class="screen" id="screen-timeline">
+  <div class="section-head">
+    <h2>Full Timeline</h2>
+    <p>Every action Apr 2026 – Jul 2028</p>
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <div class="card-body" style="padding:10px 16px">
+      <div style="display:flex;gap:14px;flex-wrap:wrap">
+        <span style="display:flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3)"><span style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block"></span>Auto</span>
+        <span style="display:flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3)"><span style="width:7px;height:7px;border-radius:50%;background:var(--orange);display:inline-block"></span>Manual</span>
+        <span style="display:flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3)"><span style="width:7px;height:7px;border-radius:50%;background:var(--blue);display:inline-block"></span>One-off</span>
+        <span style="display:flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3)"><span style="width:7px;height:7px;border-radius:50%;background:var(--gold);display:inline-block"></span>Milestone</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="timeline-card">
+    <!-- Generated by JS -->
+  </div>
+</div>
+
+<!-- ══════════════════════ SCREEN: TAX ══ -->
+<div class="screen" id="screen-tax">
+  <div class="section-head">
+    <h2>Tax Tracker</h2>
+    <p>LTCG management · ₹1.25L exemption</p>
+  </div>
+
+  <div class="kpi-scroll">
+    <div class="kpi-card kpi-green"><div class="kpi-label">TOTAL LTCG</div><div class="kpi-value green">~₹18K</div><div class="kpi-sub">28 months</div></div>
+    <div class="kpi-card kpi-green"><div class="kpi-label">TAX PAYABLE</div><div class="kpi-value green">₹0</div></div>
+    <div class="kpi-card kpi-blue"><div class="kpi-label">REDEMPTIONS</div><div class="kpi-value">14</div><div class="kpi-sub">Total events</div></div>
+    <div class="kpi-card kpi-gold" style="grid-column:span 3"><div class="kpi-label">EXEMPTION USED OF ₹1.25L/YR LIMIT</div><div class="kpi-value gold">1.4%</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">FY 2026–27 · Apr–Mar</span>
+      <span class="pill pill-auto">ZERO TAX</span>
+    </div>
+    <div class="card-body">
+      <div class="tax-row-label"><span>LTCG from BAF redemptions</span><span style="color:var(--green)">~₹1,800</span></div>
+      <div class="tax-track"><div class="tax-fill" style="width:1.4%;background:var(--green)"></div></div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);text-align:right">1.4% of ₹1.25L limit</div>
+      <div class="info-box green" style="margin-top:8px">
+        BAF has only 0.6% gain (₹2K total). Each ₹25K redemption triggers ~₹150 LTCG. Negligible — effectively zero tax this FY.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">FY 2027–28 · Apr–Mar</span>
+      <span class="pill pill-auto">ZERO TAX</span>
+    </div>
+    <div class="card-body">
+      <div class="tax-row-label"><span>ELSS LTCG (Oct 2027)</span><span style="color:var(--green)">~₹16,000</span></div>
+      <div class="tax-track"><div class="tax-fill" style="width:12.8%;background:var(--blue)">₹16K</div></div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);text-align:right;margin-top:3px">12.8% of ₹1.25L used</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+        <div style="background:var(--bg2);border-radius:8px;padding:10px;text-align:center">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--text3);margin-bottom:4px">LTCG THIS FY</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--text1)">~₹16K</div>
+        </div>
+        <div style="background:var(--green-dim);border-radius:8px;padding:10px;text-align:center;border:1px solid rgba(61,220,132,0.2)">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--green);margin-bottom:4px">REMAINING LIMIT</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--green)">₹1,09,000</div>
+        </div>
+      </div>
+      <div class="info-box orange" style="margin-top:8px">
+        <div class="info-label" style="color:var(--orange)">⚠ WATCH OUT</div>
+        If you have any other equity LTCG this FY (old funds etc.), add those to the ₹16K. Combined must stay under ₹1.25L for zero tax.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">FY 2028–29 · Apr–Mar</span>
+      <span class="pill pill-auto">ZERO TAX</span>
+    </div>
+    <div class="card-body">
+      <div class="tax-row-label"><span>Any redemptions?</span><span style="color:var(--green)">NONE</span></div>
+      <div class="tax-track"><div class="tax-fill" style="width:0%;background:var(--green)"></div></div>
+      <div class="info-box green" style="margin-top:8px">
+        FD1 lump sum (Aug 28) into Nifty50 is a fresh <strong>purchase</strong> — no redemption, no LTCG. Full ₹1.25L exemption intact. Zero tax.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">28-Month Summary</span>
+    </div>
+    <div class="card-body">
+      <div class="sum-row"><div class="sum-label">Total LTCG triggered</div><div class="sum-val">~₹17,800</div></div>
+      <div class="sum-row"><div class="sum-label">Tax payable</div><div class="sum-val green">₹0</div></div>
+      <div class="sum-row"><div class="sum-label">Total redemptions</div><div class="sum-val">14 events</div></div>
+      <div class="sum-row"><div class="sum-label">Exemption consumed (avg/yr)</div><div class="sum-val gold">~₹9K / yr</div></div>
+      <div class="sum-row"><div class="sum-label">Exemption remaining/yr</div><div class="sum-val green">~₹1.16L</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ BOTTOM TAB BAR ══ -->
+<div class="tabbar">
+  <div class="tab active" onclick="switchTab('overview',this)">
+    <div class="tab-icon">📊</div>
+    <div class="tab-label">OVERVIEW</div>
+  </div>
+  <div class="tab" onclick="switchTab('phases',this)">
+    <div class="tab-icon">📋</div>
+    <div class="tab-label">PHASES</div>
+  </div>
+  <div class="tab" onclick="switchTab('timeline',this)">
+    <div class="tab-icon">🗓</div>
+    <div class="tab-label">TIMELINE</div>
+  </div>
+  <div class="tab" onclick="switchTab('tax',this)">
+    <div class="tab-icon">🧾</div>
+    <div class="tab-label">TAX</div>
+  </div>
+</div>
+
+<script>
+// ── TAB NAVIGATION ──
+const titles = {
+  overview: ['Portfolio Plan', 'APR 2026 – JUL 2028'],
+  phases: ['Action Phases', 'WHAT TO DO & WHEN'],
+  timeline: ['Full Timeline', 'ALL 16 ACTIONS'],
+  tax: ['Tax Tracker', 'LTCG · ZERO TAX PLAN'],
+};
+function switchTab(id, el) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('screen-'+id).classList.add('active');
+  el.classList.add('active');
+  document.getElementById('topbar-title').textContent = titles[id][0];
+  document.getElementById('topbar-sub').textContent = titles[id][1];
+  // Scroll to top
+  document.getElementById('screen-'+id).scrollTop = 0;
+}
+
+// ── PHASE SELECTOR ──
+function showPhaseContent(id, btn) {
+  document.querySelectorAll('.phase-content').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.phase-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('pc-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── BAF DEPLETION GRID ──
+function buildBAF() {
+  const bafMonths = ['APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC','JAN','FEB','MAR'];
+  let bafRemaining = 329000;
+  const grid = document.getElementById('baf-grid');
+  if (!grid || grid.querySelector('.month-cell')) return;
+  bafMonths.forEach(m => {
+    bafRemaining -= 25000;
+    const pct = Math.max(0, (bafRemaining / 329000) * 100);
+    const col = pct > 50 ? '#e8b84b' : pct > 20 ? '#ff8c42' : '#ff5c5c';
+    grid.innerHTML += `<div class="month-cell">
+      <div class="month-bar-wrap">
+        <div class="month-bar-fill" style="height:${pct}%;background:${col}"></div>
+      </div>
+      <div class="month-label">${m}</div>
+      <div class="month-val">${(Math.max(0,bafRemaining)/100000).toFixed(1)}L</div>
+    </div>`;
+  });
+}
+
+// ── TIMELINE DATA ──
+function buildTimeline() {
+  const tc = document.getElementById('timeline-card');
+  if (tc.querySelector('.tl-group-header')) return;
+  const tlData = [
+  { date: 'APR 2026', milestone: 'PHASE 1 START', events: [
+    { type: 'oneoff', text: '<strong>Apr 1:</strong> Set up STP — Tata BAF → Tata Smallcap ₹10K/mo' },
+    { type: 'manual', text: '<strong>Apr 5:</strong> Redeem ₹15K from Tata BAF' },
+    { type: 'manual', text: '<strong>Apr 8:</strong> Invest ₹15K into Motilal Midcap (lump sum)' },
+    { type: 'auto', text: '₹5K UTI Nifty50 SIP continues automatically' },
+  ]},
+  { date: 'MAY–DEC 2026', milestone: null, events: [
+    { type: 'auto', text: 'STP ₹10K/mo auto: BAF → Tata Smallcap (every month)' },
+    { type: 'manual', text: '5th each month: Redeem ₹15K BAF → invest Motilal Midcap on 8th' },
+  ]},
+  { date: 'JAN–MAR 2027', milestone: null, events: [
+    { type: 'manual', text: 'Continue monthly BAF → Midcap transfers (Jan, Feb, Mar)' },
+    { type: 'manual', text: '<strong>Mar 31:</strong> Stop STP. Stop manual transfers. Leave BAF residual ~₹40K.' },
+    { type: 'manual', text: '<strong>Mar 2027:</strong> Cancel ₹5K Nifty50 SIP (effective Apr 1)' },
+  ]},
+  { date: 'APR 2027', milestone: 'PHASE 2 START', events: [
+    { type: 'oneoff', text: '<strong>Apr 1:</strong> Start UTI Nifty50 SIPs — ₹6K (step-up) + ₹2K (fixed) = ₹8K/mo' },
+    { type: 'oneoff', text: '<strong>Apr 1:</strong> Start Motilal Midcap150 Index SIPs — ₹4K + ₹1.5K = ₹5.5K/mo' },
+    { type: 'auto', text: 'Both SIPs run automatically from here' },
+  ]},
+  { date: 'APR–SEP 2027', milestone: null, events: [
+    { type: 'auto', text: '₹13.5K/mo in SIPs running automatically — nothing to do' },
+  ]},
+  { date: 'OCT 2027', milestone: 'ELSS LOCK-IN OPENS', events: [
+    { type: 'oneoff', text: '<strong>Oct 1:</strong> Redeem full Quant ELSS (~₹73K)' },
+    { type: 'oneoff', text: '<strong>Oct 7–8:</strong> Invest ELSS proceeds into UTI Nifty50 (lump sum)' },
+    { type: 'auto', text: 'LTCG ~₹16K — Zero tax (₹1.25L limit, only 12.8% used)' },
+  ]},
+  { date: 'NOV 27 – JUL 28', milestone: 'FULLY PASSIVE', events: [
+    { type: 'auto', text: '₹13.5K/mo SIPs running — zero actions required' },
+    { type: 'auto', text: '<strong>Apr 2028:</strong> Step-up kicks in → SIPs increase to ₹14K/mo total' },
+  ]},
+  { date: 'AUG 2028', milestone: 'FD1 MATURES', events: [
+    { type: 'oneoff', text: 'Receive ₹13.58L from FD1' },
+    { type: 'oneoff', text: '₹10L → Emergency Fund (liquid fund — keep separate, do NOT invest)' },
+    { type: 'oneoff', text: '₹3.58L → UTI Nifty50 Index Fund lump sum' },
+  ]},
+];
+
+const dotColor = { auto: 'var(--green)', manual: 'var(--orange)', oneoff: 'var(--blue)', milestone: 'var(--gold)' };
+const tagClass = { auto: 'pill-auto', manual: 'pill-manual', oneoff: 'pill-passive', milestone: 'pill-milestone' };
+const tagLabel = { auto: 'AUTO', manual: 'MANUAL', oneoff: 'ONE-OFF' };
+
+let tlHtml = '';
+tlData.forEach(group => {
+  tlHtml += `<div class="tl-group-header">
+    <div class="tl-date">${group.date}</div>
+    <div class="tl-line"></div>
+    ${group.milestone ? `<span class="pill pill-milestone" style="font-size:8px">${group.milestone}</span>` : ''}
+  </div>`;
+  group.events.forEach(ev => {
+    tlHtml += `<div class="tl-event">
+      <div class="tl-dot" style="background:${dotColor[ev.type]}"></div>
+      <div class="tl-text">${ev.text}</div>
+      <span class="tl-tag ${tagClass[ev.type]}">${tagLabel[ev.type] || ''}</span>
+    </div>`;
+  });
+});
+tc.innerHTML = tlHtml;
+}
+</script>
+</div><!-- /app -->
+
+<script>
+// ── PASSWORD GATE ──
+const CORRECT = "150786";
+
+function checkPwd() {
+  const input = document.getElementById('gate-input');
+  const err   = document.getElementById('gate-error');
+  if (input.value === CORRECT) {
+    const gate = document.getElementById('gate');
+    gate.classList.add('gate-out');
+    setTimeout(() => {
+      gate.style.display = 'none';
+      document.getElementById('app').classList.add('unlocked');
+      // trigger BAF grid & timeline now that app is visible
+      buildBAF();
+      buildTimeline();
+    }, 300);
+  } else {
+    input.classList.remove('error');
+    void input.offsetWidth; // reflow to restart animation
+    input.classList.add('error');
+    err.classList.add('show');
+    input.value = '';
+    input.focus();
+    setTimeout(() => { input.classList.remove('error'); }, 500);
+  }
+}
+
+function togglePwd() {
+  const inp = document.getElementById('gate-input');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  document.getElementById('eye-btn').textContent = inp.type === 'password' ? '👁' : '🙈';
+}
+
+// Focus input on load
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('gate-input').focus(), 300);
+});
+</script>
+</body>
+</html>
