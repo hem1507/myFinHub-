@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Investment Master Plan · 2026–2047</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Fira+Code:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060810;--bg1:#0b0f1c;--bg2:#111827;--bg3:#18213a;--bg4:#1e2b46;
+  --border:rgba(255,255,255,0.055);--border2:rgba(255,255,255,0.10);
+  --t1:#edeae2;--t2:#8b95b0;--t3:#444e68;
+  --gold:#d4a843;--gold2:#f2c86a;--gd:rgba(212,168,67,.13);
+  --red:#e05252;--red2:#ff7777;--rd:rgba(224,82,82,.11);
+  --grn:#3bc96d;--grn2:#68e890;--gnd:rgba(59,201,109,.11);
+  --blu:#4a8cf0;--blu2:#7ab0ff;--bld:rgba(74,140,240,.11);
+  --org:#e07c38;--ogd:rgba(224,124,56,.11);
+  --pur:#9b68e8;--pud:rgba(155,104,232,.11);
+  --tel:#2bbfb0;--ted:rgba(43,191,176,.11);
+  --sidebar:252px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);display:flex;height:100vh;overflow:hidden;}
+
+/* SIDEBAR */
+.sb{width:var(--sidebar);flex-shrink:0;background:var(--bg1);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100vh;overflow-y:auto;}
+.sb-logo{padding:24px 18px 18px;border-bottom:1px solid var(--border);}
+.sb-logo h1{font-family:'DM Serif Display',serif;font-size:17px;color:var(--t1);line-height:1.25;}
+.sb-logo p{font-family:'Fira Code',monospace;font-size:8.5px;color:var(--gold);letter-spacing:2px;margin-top:5px;}
+.sb-sec{font-family:'Fira Code',monospace;font-size:7.5px;color:var(--t3);letter-spacing:2px;padding:14px 18px 5px;text-transform:uppercase;}
+.sb-item{display:flex;align-items:center;gap:9px;padding:8px 18px;cursor:pointer;font-size:12px;color:var(--t2);border-left:2px solid transparent;transition:all .15s;user-select:none;}
+.sb-item:hover{background:var(--bg2);color:var(--t1);}
+.sb-item.active{background:var(--bg2);color:var(--t1);border-left-color:var(--gold);}
+.sb-icon{font-size:13px;width:16px;text-align:center;flex-shrink:0;}
+.sb-badge{margin-left:auto;font-family:'Fira Code',monospace;font-size:7.5px;padding:2px 6px;border-radius:10px;}
+.sb-foot{padding:14px 18px;border-top:1px solid var(--border);font-family:'Fira Code',monospace;font-size:8px;color:var(--t3);line-height:1.8;margin-top:auto;}
+
+/* MAIN */
+.main{flex:1;height:100vh;overflow-y:auto;overscroll-behavior:contain;}
+.page{display:none;padding:28px 32px 40px;min-height:100vh;}
+.page.active{display:block;}
+.ph{margin-bottom:24px;}
+.ph h2{font-family:'DM Serif Display',serif;font-size:28px;font-weight:400;letter-spacing:-.4px;}
+.ph p{font-family:'Fira Code',monospace;font-size:9px;color:var(--t3);letter-spacing:1.5px;text-transform:uppercase;margin-top:5px;}
+
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px;}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:14px;}
+.g6{display:grid;grid-template-columns:repeat(6,1fr);gap:11px;margin-bottom:14px;}
+.g13{display:grid;grid-template-columns:1fr 2fr;gap:14px;margin-bottom:14px;}
+.g31{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:14px;}
+
+/* KPI */
+.k{background:var(--bg1);border:1px solid var(--border);border-radius:10px;padding:14px 16px;position:relative;overflow:hidden;}
+.k::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.k.gold::before{background:var(--gold)}.k.red::before{background:var(--red)}.k.grn::before{background:var(--grn)}.k.blu::before{background:var(--blu)}.k.org::before{background:var(--org)}.k.pur::before{background:var(--pur)}.k.tel::before{background:var(--tel)}
+.kl{font-family:'Fira Code',monospace;font-size:8px;color:var(--t3);letter-spacing:1px;text-transform:uppercase;margin-bottom:7px;}
+.kv{font-family:'Fira Code',monospace;font-size:21px;font-weight:500;line-height:1;color:var(--t1);}
+.kv.red{color:var(--red)}.kv.grn{color:var(--grn)}.kv.gold{color:var(--gold)}.kv.blu{color:var(--blu)}.kv.org{color:var(--org)}.kv.pur{color:var(--pur)}.kv.tel{color:var(--tel)}
+.ks{font-size:10px;color:var(--t3);margin-top:4px;line-height:1.4;}
+
+/* PANEL */
+.pn{background:var(--bg1);border:1px solid var(--border);border-radius:11px;overflow:hidden;margin-bottom:14px;}
+.pn-h{padding:13px 18px 11px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.pn-t{font-family:'DM Serif Display',serif;font-size:14px;font-weight:400;color:var(--t1);}
+.pn-b{padding:16px 18px;}
+
+/* PILL */
+.pill{font-family:'Fira Code',monospace;font-size:7.5px;letter-spacing:.8px;padding:2px 8px;border-radius:20px;text-transform:uppercase;white-space:nowrap;}
+.p-gold{background:var(--gd);color:var(--gold);border:1px solid rgba(212,168,67,.25);}
+.p-red{background:var(--rd);color:var(--red);border:1px solid rgba(224,82,82,.25);}
+.p-grn{background:var(--gnd);color:var(--grn);border:1px solid rgba(59,201,109,.25);}
+.p-blu{background:var(--bld);color:var(--blu);border:1px solid rgba(74,140,240,.25);}
+.p-org{background:var(--ogd);color:var(--org);border:1px solid rgba(224,124,56,.25);}
+.p-pur{background:var(--pud);color:var(--pur);border:1px solid rgba(155,104,232,.25);}
+.p-tel{background:var(--ted);color:var(--tel);border:1px solid rgba(43,191,176,.25);}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;}
+.tbl th{font-family:'Fira Code',monospace;font-size:8px;color:var(--t3);letter-spacing:1px;text-transform:uppercase;padding:8px 12px;border-bottom:1px solid var(--border2);text-align:left;background:var(--bg2);}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--border);font-size:11.5px;color:var(--t2);}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:hover td{background:rgba(255,255,255,.02);}
+.tbl .ph-row td{background:var(--bg);font-family:'Fira Code',monospace;font-size:8px;color:var(--gold);letter-spacing:1.5px;padding:5px 12px;}
+.mono{font-family:'Fira Code',monospace;font-size:11px;}
+.amt{font-family:'Fira Code',monospace;font-size:12px;font-weight:500;color:var(--t1);}
+.amt-grn{color:var(--grn)}.amt-red{color:var(--red)}.amt-gold{color:var(--gold)}.amt-blu{color:var(--blu)}.amt-pur{color:var(--pur)}.amt-tel{color:var(--tel)}.amt-org{color:var(--org)}
+
+/* DEPLOY CARD — key new component */
+.dep-card{border-radius:10px;padding:14px 16px;margin-bottom:10px;border:1px solid var(--border);background:var(--bg2);position:relative;}
+.dep-card.stp{border-left:3px solid var(--blu);}
+.dep-card.oneoff{border-left:3px solid var(--gold);}
+.dep-card.auto{border-left:3px solid var(--grn);}
+.dep-card.exit{border-left:3px solid var(--red);}
+.dep-card.ef{border-left:3px solid var(--t3);}
+.dep-badge{position:absolute;top:12px;right:14px;font-family:'Fira Code',monospace;font-size:8px;padding:3px 9px;border-radius:10px;}
+.dep-type{font-family:'Fira Code',monospace;font-size:8px;letter-spacing:1.5px;margin-bottom:7px;}
+.dep-title{font-size:13px;font-weight:600;color:var(--t1);margin-bottom:3px;}
+.dep-amount{font-family:'Fira Code',monospace;font-size:20px;font-weight:500;margin:7px 0 5px;}
+.dep-detail{font-size:11px;color:var(--t2);line-height:1.7;}
+.dep-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}
+.dep-tag{font-family:'Fira Code',monospace;font-size:8px;background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:2px 7px;color:var(--t3);}
+
+/* INFO BOX */
+.ib{border-radius:8px;padding:11px 14px;font-size:11.5px;line-height:1.7;color:var(--t2);margin-top:10px;}
+.ib.gold{background:var(--gd);border:1px solid rgba(212,168,67,.2);}
+.ib.grn{background:var(--gnd);border:1px solid rgba(59,201,109,.2);}
+.ib.red{background:var(--rd);border:1px solid rgba(224,82,82,.2);}
+.ib.blu{background:var(--bld);border:1px solid rgba(74,140,240,.2);}
+.ib.org{background:var(--ogd);border:1px solid rgba(224,124,56,.2);}
+.ib-l{font-family:'Fira Code',monospace;font-size:7.5px;letter-spacing:1.5px;margin-bottom:5px;}
+
+/* SUM ROW */
+.sr{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border);}
+.sr:last-child{border-bottom:none;}
+.sr-l{font-size:11.5px;color:var(--t2);}
+.sr-v{font-family:'Fira Code',monospace;font-size:12px;font-weight:500;color:var(--t1);}
+.sr-v.grn{color:var(--grn)}.sr-v.red{color:var(--red)}.sr-v.gold{color:var(--gold)}
+
+/* FUND BAR */
+.fb{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+.fb:last-child{margin-bottom:0;}
+.fb-name{font-size:11.5px;color:var(--t2);width:175px;flex-shrink:0;line-height:1.3;}
+.fb-amc{font-family:'Fira Code',monospace;font-size:8px;color:var(--t3);display:block;}
+.fb-track{flex:1;height:7px;background:var(--bg3);border-radius:4px;overflow:hidden;}
+.fb-fill{height:100%;border-radius:4px;}
+.fb-pnl{font-family:'Fira Code',monospace;font-size:11px;width:72px;text-align:right;flex-shrink:0;}
+.fb-pct{font-family:'Fira Code',monospace;font-size:9.5px;color:var(--t3);width:46px;text-align:right;flex-shrink:0;}
+
+/* ALLOC ROW */
+.ar{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--border);}
+.ar:last-child{border-bottom:none;}
+.ar-dot{width:9px;height:9px;border-radius:2px;flex-shrink:0;}
+.ar-name{flex:1;font-size:11.5px;color:var(--t2);}
+.ar-pct{font-family:'Fira Code',monospace;font-size:11px;font-weight:500;width:34px;text-align:right;}
+.ar-val{font-family:'Fira Code',monospace;font-size:10px;color:var(--t3);width:56px;text-align:right;}
+
+/* TIMELINE */
+.tl-gh{display:flex;align-items:center;gap:10px;padding:9px 0 7px;}
+.tl-yr{font-family:'Fira Code',monospace;font-size:9.5px;color:var(--t3);width:64px;flex-shrink:0;}
+.tl-ln{flex:1;height:1px;background:var(--border);}
+.tl-ev{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--border);align-items:flex-start;}
+.tl-ev:last-child{border-bottom:none;}
+.tl-dot{width:7px;height:7px;border-radius:50%;margin-top:4px;flex-shrink:0;}
+.tl-txt{font-size:11.5px;color:var(--t2);flex:1;line-height:1.6;}
+.tl-txt strong{color:var(--t1);}
+.tl-amt{font-family:'Fira Code',monospace;font-size:10.5px;color:var(--gold);white-space:nowrap;flex-shrink:0;}
+.tl-tag{font-family:'Fira Code',monospace;font-size:7.5px;padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:2px;align-self:flex-start;}
+
+/* GLIDE */
+.gl-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);}
+.gl-yr{font-family:'Fira Code',monospace;font-size:9px;color:var(--t3);width:38px;flex-shrink:0;}
+.gl-bar{flex:1;height:9px;background:var(--bg3);border-radius:5px;overflow:hidden;display:flex;}
+.gl-labels{display:flex;gap:8px;width:130px;flex-shrink:0;}
+.gl-lbl{font-family:'Fira Code',monospace;font-size:8.5px;}
+
+/* CRASH TABLE */
+.crash-good{background:rgba(59,201,109,.04);}
+.crash-warn{background:rgba(212,168,67,.04);}
+.crash-bad{background:rgba(224,82,82,.04);}
+
+/* CANVAS */
+canvas{display:block;width:100%;}
+
+/* BUCKET */
+.bkt{border-radius:9px;padding:13px 14px;border:1px solid var(--border);background:var(--bg2);}
+.bkt-t{font-family:'Fira Code',monospace;font-size:8px;letter-spacing:1.5px;margin-bottom:7px;}
+.bkt-v{font-family:'Fira Code',monospace;font-size:18px;font-weight:500;margin-bottom:4px;}
+.bkt-d{font-size:10.5px;color:var(--t2);line-height:1.55;}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px;}
+
+/* ANIM */
+@keyframes fu{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.pn,.k,.dep-card{animation:fu .28s ease both;}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sb">
+  <div class="sb-logo">
+    <h1>Investment<br>Master Plan</h1>
+    <p>2026 — 2047 · AGE 39→60</p>
+  </div>
+  <nav style="flex:1">
+    <div class="sb-sec">Overview</div>
+    <div class="sb-item active" onclick="nav('overview',this)"><span class="sb-icon">◈</span>Dashboard<span class="sb-badge p-gold pill">21 YR</span></div>
+    <div class="sb-item" onclick="nav('corpus',this)"><span class="sb-icon">◎</span>Corpus Growth</div>
+
+    <div class="sb-sec">Phases · Deployments</div>
+    <div class="sb-item" onclick="nav('ph1',this)"><span class="sb-icon">①</span>Rebalancing<span class="sb-badge p-org pill">2026–28</span></div>
+    <div class="sb-item" onclick="nav('ph2',this)"><span class="sb-icon">②</span>FD2 Deploy<span class="sb-badge p-blu pill">Jan 2029</span></div>
+    <div class="sb-item" onclick="nav('ph3',this)"><span class="sb-icon">③</span>Compounding<span class="sb-badge p-grn pill">2029–33</span></div>
+    <div class="sb-item" onclick="nav('ph4',this)"><span class="sb-icon">④</span>PPF Deploy<span class="sb-badge p-pur pill">Apr 2033</span></div>
+    <div class="sb-item" onclick="nav('ph5',this)"><span class="sb-icon">⑤</span>Glide Path<span class="sb-badge p-tel pill">2041–46</span></div>
+    <div class="sb-item" onclick="nav('ph6',this)"><span class="sb-icon">⑥</span>Withdrawal 2047<span class="sb-badge p-gold pill">AGE 60</span></div>
+
+    <div class="sb-sec">Analysis</div>
+    <div class="sb-item" onclick="nav('postret',this)"><span class="sb-icon">↗</span>Post-Retirement<span class="sb-badge p-grn pill">2047+</span></div>
+    <div class="sb-item" onclick="nav('crash',this)"><span class="sb-icon">⚡</span>Crash Survival</div>
+    <div class="sb-item" onclick="nav('nps',this)"><span class="sb-icon">◉</span>NPS Plan</div>
+    <div class="sb-item" onclick="nav('ppf',this)"><span class="sb-icon">◈</span>PPF Plan</div>
+    <div class="sb-item" onclick="nav('tax',this)"><span class="sb-icon">◇</span>Tax Tracker</div>
+    <div class="sb-item" onclick="nav('tl',this)"><span class="sb-icon">≡</span>Full Timeline</div>
+  </nav>
+  <div class="sb-foot">
+    Nifty50 12% · Midcap 14%<br>Smallcap 15% · BAF 10%<br>MC150 Idx 13% · NPS 11%<br>PPF 7.1% · Inflation 6%<br><br>
+    Illustrative only. Not advice.
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main" id="main">
+
+<!-- ══ OVERVIEW ══════════════════════════════════════ -->
+<div class="page active" id="page-overview">
+  <div class="ph"><h2>Investment Master Dashboard</h2><p>Apr 2026 → Apr 2047 · 21 Years · Age 39 → 60</p></div>
+
+  <div class="g6">
+    <div class="k red"><div class="kl">MF TODAY</div><div class="kv red">₹9.69L</div><div class="ks">Invested ₹10.94L · −11.4%</div></div>
+    <div class="k gold"><div class="kl">NPS TODAY</div><div class="kv gold">₹8.57L</div><div class="ks">E75/C13/G12 · Personal</div></div>
+    <div class="k blu"><div class="kl">PPF TODAY</div><div class="kv blu">₹6.13L</div><div class="ks">7 installs of ₹1.5L left</div></div>
+    <div class="k grn"><div class="kl">MF CORPUS 2047</div><div class="kv grn">₹5.44 Cr</div><div class="ks">Surplus ₹1.15 Cr vs SWR</div></div>
+    <div class="k pur"><div class="kl">NPS CORPUS 2047</div><div class="kv pur">₹2.50 Cr</div><div class="ks">₹74.9K/mo annuity</div></div>
+    <div class="k tel"><div class="kl">TOTAL 2047</div><div class="kv tel">₹7.94 Cr</div><div class="ks">₹2L/mo exact withdrawal</div></div>
+  </div>
+
+  <div class="g2">
+    <div class="pn">
+      <div class="pn-h"><span class="pn-t">6-Phase Roadmap</span><span class="pill p-gold">21 YEARS</span></div>
+      <div class="pn-b" style="padding:12px 14px">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px">
+          <div style="background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:13px;cursor:pointer" onclick="nav('ph1',null)">
+            <div style="font-family:'Fira Code',monospace;font-size:8px;color:var(--t3);letter-spacing:2px;margin-bottom:6px">PHASE 1</div>
+            <div style="font-family:'DM Serif Display',serif;font-size:14px;color:var(--t1);margin-bottom:3px">Rebalancing</div>
+            <div style="font-family:'Fira Code',monospace;font-size:9px;color:var(--org)">Apr 2026 – Jul 2028</div>
+            <div style="margin-top:8px;display:flex;gap:5px;flex-wrap:wrap"><span class="pill p-org">BAF DEPLOY</span><span class="pill p-red">ELSS EXIT</span></div>
+          </div>
+          <div style="background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:13px;cursor:pointer" onclick="nav('ph2',null)">
+            <div style="font-family:'Fira Code',monospace;font-size:8px;color:var(--t3);letter-spacing:2px;margin-bottom:6px">PHASE 2</div>
+            <div style="font-family:'DM Serif Display',serif;font-size:14px;color:var(--t1);margin-bottom:3px">FD2 Deploy</div>
+            <div style="font-family:'Fira Code',monospace;font-size:9px;color:var(--blu)">Jan 2029</div>
+            <div style="margin-top:8px;display:flex;gap:5px;flex-wrap:wrap"><span class="pill p-pur">₹10L NPS</span><span class="pill p-blu">ONE-OFF MF</span></div>
+          </div>
+          <div style="background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:13px;cursor:pointer" onclick="nav('ph3',null)">
+            <div style="font-family:'Fira Code',monospace;font-size:8px;color:var(--t3);letter-spacing:2px;margin-bottom:6px">PHASE 3</div>
+            <div style="font-family:'DM Serif Display',serif;font-size:14px;color:var(--t1);margin-bottom:3px">Compounding</div>
+            <div style="font-family:'Fira Code',monospace;font-size:9px;color:var(--grn)">2029 – 2033</div>
+            <div style="margin-top:8px;display:flex;gap:5px;flex-wrap:wrap"><span class="pill p-grn">FULLY AUTO</span></div>
+          </div>
+          <div style="background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:13px;cursor:pointer" onclick="nav('ph4',null)">
+            <div style="font-family:'Fira Code',monospace;font-size:8px;color:var(--t3);letter-spacing:2px;margin-bottom:6px">PHASE 4</div>
+            <div style="font-family:'DM Serif Display',serif;font-size:14px;color:var(--t1);margin-bottom:3px">PPF Deploy</div>
+            <div style="font-family:'Fira Code',monospace;font-size:9px;color:var(--pur)">Apr 2033</div>
+            <div style="margin-top:8px;display:flex;gap:5px;flex-wrap:wrap"><span class="pill p-pur">₹8L NPS</span><span class="pill p-tel">STP 6MO</span></div>
+          </div>
+          <div style="background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:13px;cursor:pointer" onclick="nav('ph5',null)">
+            <div style="font-family:'Fira Code',monospace;font-size:8px;color:var(--t3);letter-spacing:2px;margin-bottom:6px">PHASE 5</div>
+            <div style="font-family:'DM Serif Display',serif;font-size:14px;color:var(--t1);margin-bottom:3px">Glide Path</div>
+            <div style="font-family:'Fira Code',monospace;font-size:9px;color:var(--tel)">2041 – 2046</div>
+            <div style="margin-top:8px;display:flex;gap:5px;flex-wrap:wrap"><span class="pill p-tel">STP 10%/YR</span></div>
+          </div>
+          <div style="background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:13px;cursor:pointer" onclick="nav('ph6',null)">
+            <div style="font-family:'Fira Code',monospace;font-size:8px;color:var(--t3);letter-spacing:2px;margin-bottom:6px">PHASE 6</div>
+            <div style="font-family:'DM Serif Display',serif;font-size:14px;color:var(--t1);margin-bottom:3px">Withdrawal</div>
+            <div style="font-family:'Fira Code',monospace;font-size:9px;color:var(--gold)">Apr 2047</div>
+            <div style="margin-top:8px;display:flex;gap:5px;flex-wrap:wrap"><span class="pill p-grn">₹2L/MO EXACT</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pn">
+      <div class="pn-h"><span class="pn-t">Withdrawal Goal · 2047</span><span class="pill p-grn">ON TRACK ✓</span></div>
+      <div class="pn-b">
+        <div style="height:32px;border-radius:7px;overflow:hidden;display:flex;margin-bottom:14px">
+          <div style="width:62.55%;background:linear-gradient(90deg,#1a5c30,var(--grn));display:flex;align-items:center;justify-content:center"><span style="font-family:'Fira Code',monospace;font-size:10px;color:#000;font-weight:500">MF SWP ₹1,25,100</span></div>
+          <div style="width:37.45%;background:linear-gradient(90deg,var(--pur),#c090ff);display:flex;align-items:center;justify-content:center"><span style="font-family:'Fira Code',monospace;font-size:10px;color:#000;font-weight:500">NPS ₹74,900</span></div>
+        </div>
+        <div class="sr"><div class="sr-l">NPS annuity (60% corpus @ 6%)</div><div class="sr-v pur">₹74,900/mo</div></div>
+        <div class="sr"><div class="sr-l">MF SWP needed (₹2L − NPS)</div><div class="sr-v grn">₹1,25,100/mo</div></div>
+        <div class="sr"><div class="sr-l">Required MF corpus @ 3.5% SWR</div><div class="sr-v">₹4.29 Cr</div></div>
+        <div class="sr"><div class="sr-l">Actual MF corpus 2047</div><div class="sr-v grn">₹5.44 Cr</div></div>
+        <div class="sr"><div class="sr-l">Surplus above SWR requirement</div><div class="sr-v grn">+₹1.15 Cr cushion</div></div>
+        <div class="sr"><div class="sr-l">NPS 40% lump sum (tax-free)</div><div class="sr-v gold">₹99.8L reinvested</div></div>
+        <div class="sr" style="border-top:1px solid var(--border2);margin-top:4px;padding-top:12px"><div class="sr-l" style="font-size:13px;font-weight:500;color:var(--t1)">TOTAL MONTHLY INCOME 2047</div><div class="sr-v grn" style="font-size:16px">₹2,00,000/mo</div></div>
+        <div class="ib gold" style="margin-top:10px"><div class="ib-l" style="color:var(--gold)">₹2L IS THE ACTUAL 2047 VALUE</div>In today's purchasing power (6% inflation × 21yr) ₹2L in 2047 equals ~₹59K today. Your corpus of ₹6.44 Cr (MF+NPS lump sum) generates ₹59.3L/year at 9.2% while you only withdraw ₹15L — the corpus grows every single year you're in retirement.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pn">
+    <div class="pn-h"><span class="pn-t">Current Holdings · Mar 2026</span><span class="pill p-red">−₹1.25L UNREALISED LOSS</span></div>
+    <div class="pn-b"><div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+      <div>
+        <div style="font-family:'Fira Code',monospace;font-size:8px;color:var(--t3);letter-spacing:1px;margin-bottom:11px">MUTUAL FUNDS</div>
+        <div class="fb"><div class="fb-name">Midcap Fund<span class="fb-amc">Motilal Oswal · Active</span></div><div class="fb-track"><div class="fb-fill" style="width:80.4%;background:linear-gradient(90deg,#a02020,var(--red))"></div></div><div class="fb-pnl" style="color:var(--red)">−₹1.06L</div><div class="fb-pct">−19.6%</div></div>
+        <div class="fb"><div class="fb-name">BAF — Ammunition<span class="fb-amc">Tata · Hybrid · DEPLOY</span></div><div class="fb-track"><div class="fb-fill" style="width:100%;background:linear-gradient(90deg,#8a6010,var(--gold))"></div></div><div class="fb-pnl" style="color:var(--gold)">+₹2K</div><div class="fb-pct">+0.6%</div></div>
+        <div class="fb"><div class="fb-name">Smallcap Fund<span class="fb-amc">Tata · Active</span></div><div class="fb-track"><div class="fb-fill" style="width:79.7%;background:linear-gradient(90deg,#904010,var(--org))"></div></div><div class="fb-pnl" style="color:var(--red)">−₹27K</div><div class="fb-pct">−20.3%</div></div>
+        <div class="fb"><div class="fb-name">ELSS · EXIT Oct 2027<span class="fb-amc">Quant · Tax Saver</span></div><div class="fb-track"><div class="fb-fill" style="width:100%;background:linear-gradient(90deg,#155828,var(--grn))"></div></div><div class="fb-pnl" style="color:var(--grn)">+₹9K</div><div class="fb-pct">+15.8%</div></div>
+        <div class="fb"><div class="fb-name">Nifty50 Index<span class="fb-amc">UTI · Index · SIP ₹5K/mo</span></div><div class="fb-track"><div class="fb-fill" style="width:91.4%;background:linear-gradient(90deg,#1a3a80,var(--blu))"></div></div><div class="fb-pnl" style="color:var(--red)">−₹3K</div><div class="fb-pct">−8.6%</div></div>
+      </div>
+      <div>
+        <div style="font-family:'Fira Code',monospace;font-size:8px;color:var(--t3);letter-spacing:1px;margin-bottom:11px">OTHER INSTRUMENTS</div>
+        <div class="sr"><div class="sr-l">NPS (Personal · E75/C13/G12)</div><div class="sr-v gold">₹8.57L</div></div>
+        <div class="sr"><div class="sr-l">PPF (7 installs ₹1.5L remaining)</div><div class="sr-v blu">₹6.13L</div></div>
+        <div class="sr"><div class="sr-l">FD1 → matures Aug 2028</div><div class="sr-v">₹11L → ₹13.58L</div></div>
+        <div class="sr"><div class="sr-l">FD2 → matures Jan 2029</div><div class="sr-v">₹16L → ₹19.35L</div></div>
+        <div class="sr"><div class="sr-l">New SIPs from Apr 2027</div><div class="sr-v grn">₹13.5K/mo rising</div></div>
+        <div class="sr"><div class="sr-l">NPS annual contribution</div><div class="sr-v gold">₹1L/yr × 20yr</div></div>
+        <div class="sr"><div class="sr-l">PPF annual contribution</div><div class="sr-v blu">₹1.5L/yr × 7yr</div></div>
+      </div>
+    </div></div>
+  </div>
+</div>
+
+<!-- ══ CORPUS GROWTH ══ -->
+<div class="page" id="page-corpus">
+  <div class="ph"><h2>Corpus Growth · 2026–2047</h2><p>Year by year projection · All instruments</p></div>
+  <div class="g4">
+    <div class="k gold"><div class="kl">2026 START</div><div class="kv gold">₹20.6L</div><div class="ks">MF + NPS today</div></div>
+    <div class="k blu"><div class="kl">2033 MIDPOINT</div><div class="kv blu">₹1.11 Cr</div><div class="ks">After PPF deploy</div></div>
+    <div class="k org"><div class="kl">2041 PRE-GLIDE</div><div class="kv org">₹3.83 Cr</div><div class="ks">Begin de-risking</div></div>
+    <div class="k grn"><div class="kl">2047 FINAL</div><div class="kv grn">₹7.94 Cr</div><div class="ks">MF ₹5.44 Cr + NPS ₹2.50 Cr</div></div>
+  </div>
+  <div class="pn" style="margin-bottom:14px">
+    <div class="pn-h"><span class="pn-t">Corpus Trajectory</span><div style="display:flex;gap:14px;align-items:center">
+      <span style="display:flex;align-items:center;gap:5px;font-family:'Fira Code',monospace;font-size:9px;color:var(--org)"><span style="width:10px;height:2.5px;background:var(--org);border-radius:2px;display:inline-block"></span>MF</span>
+      <span style="display:flex;align-items:center;gap:5px;font-family:'Fira Code',monospace;font-size:9px;color:var(--pur)"><span style="width:10px;height:2.5px;background:var(--pur);border-radius:2px;display:inline-block"></span>NPS</span>
+      <span style="display:flex;align-items:center;gap:5px;font-family:'Fira Code',monospace;font-size:9px;color:var(--tel)"><span style="width:10px;height:2.5px;background:var(--tel);border-radius:2px;display:inline-block"></span>Total</span>
+      <span style="display:flex;align-items:center;gap:5px;font-family:'Fira Code',monospace;font-size:9px;color:var(--grn)"><span style="width:10px;height:2px;border-top:2px dashed var(--grn);display:inline-block"></span>SWR Floor</span>
+    </div></div>
+    <div class="pn-b" style="padding:14px 18px"><canvas id="c-corpus" height="270"></canvas></div>
+  </div>
+  <div class="pn">
+    <div class="pn-h"><span class="pn-t">Year-by-Year Table</span></div>
+    <div class="pn-b" style="padding:0"><table class="tbl" id="t-corpus"></table></div>
+  </div>
+</div>
+
+<!-- ══ PHASE 1 ══ -->
+<div class="page" id="page-ph1">
+  <div class="ph"><h2>Phase 1 · Rebalancing</h2><p>Apr 2026 – Jul 2028 · BAF as ammunition · STP + Manual + One-off</p></div>
+  <div class="g5">
+    <div class="k gold"><div class="kl">BAF DEPLOYED</div><div class="kv gold">₹3.0L</div><div class="ks">₹25K/mo × 12 months</div></div>
+    <div class="k blu"><div class="kl">BAF → STP AUTO</div><div class="kv blu">₹10K/mo</div><div class="ks">Tata BAF → Tata Smallcap</div></div>
+    <div class="k org"><div class="kl">BAF → MANUAL</div><div class="kv org">₹15K/mo</div><div class="ks">→ Motilal Midcap · 5th/8th</div></div>
+    <div class="k grn"><div class="kl">NEW SIPs APR 27</div><div class="kv grn">₹13.5K</div><div class="ks">Nifty50 + MC150 Index</div></div>
+    <div class="k red"><div class="kl">ELSS EXIT</div><div class="kv red">~₹73K</div><div class="ks">Oct 2027 · Zero tax</div></div>
+  </div>
+
+  <div class="g2">
+    <div>
+      <!-- STP 1: BAF → Smallcap -->
+      <div class="dep-card auto">
+        <div class="dep-badge p-grn pill">AUTO STP</div>
+        <div class="dep-type" style="color:var(--grn)">DEPLOYMENT 1 · SET ONCE · APR 1 2026</div>
+        <div class="dep-title">STP: Tata BAF → Tata Smallcap</div>
+        <div class="dep-amount" style="color:var(--grn)">₹10,000/month</div>
+        <div class="dep-detail">Same AMC — set up in Tata MF portal once. Runs automatically on 5th of each month for 12 months. No further action needed.</div>
+        <div class="dep-meta">
+          <span class="dep-tag">DURATION: 12 months</span>
+          <span class="dep-tag">TOTAL: ₹1,20,000</span>
+          <span class="dep-tag">APR 2026 → MAR 2027</span>
+          <span class="dep-tag">Same AMC ✓</span>
+        </div>
+        <div class="ib grn" style="margin-top:9px"><div class="ib-l" style="color:var(--grn)">WHY STP NOT LUMP SUM</div>Averaging down Smallcap cost basis over 12 months. Each month buys at potentially different (lower) prices. Within Tata AMC — automatic, no cross-AMC friction.</div>
+      </div>
+
+      <!-- Manual: BAF → Midcap -->
+      <div class="dep-card" style="border-left:3px solid var(--org)">
+        <div class="dep-badge p-org pill">MANUAL MONTHLY</div>
+        <div class="dep-type" style="color:var(--org)">DEPLOYMENT 2 · 12 ACTIONS · APR 5 – MAR 5</div>
+        <div class="dep-title">Manual: Tata BAF → Motilal Midcap</div>
+        <div class="dep-amount" style="color:var(--org)">₹15,000/month</div>
+        <div class="dep-detail">Cross-AMC (Tata→Motilal) — STP not possible. Redeem ₹15K from Tata BAF on 5th. Money in bank by 7th–8th. Invest ₹15K into Motilal Midcap Fund (Direct) on 8th.</div>
+        <div class="dep-meta">
+          <span class="dep-tag">DURATION: 12 months</span>
+          <span class="dep-tag">TOTAL: ₹1,80,000</span>
+          <span class="dep-tag">Redeem 5th · Invest 8th</span>
+          <span class="dep-tag">Cross-AMC: no STP</span>
+        </div>
+      </div>
+
+      <!-- BAF residual -->
+      <div class="dep-card ef">
+        <div class="dep-badge pill" style="background:var(--bg3);color:var(--t3);border:1px solid var(--border)">LEAVE</div>
+        <div class="dep-type" style="color:var(--t3)">RESIDUAL · MAR 31 2027</div>
+        <div class="dep-title">Stop all BAF transfers. Leave ~₹40K residual.</div>
+        <div class="dep-amount" style="color:var(--t3)">~₹40,000</div>
+        <div class="dep-detail">After 12 months of ₹25K/month redemptions from ₹3.29L, residual is ~₹40K. Not worth redeeming for tax paperwork. Leave as minor buffer. Cancel STP on Mar 31.</div>
+        <div class="dep-meta">
+          <span class="dep-tag">Do not redeem</span>
+          <span class="dep-tag">Cancel STP: Mar 31, 2027</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <!-- ELSS Exit -->
+      <div class="dep-card exit">
+        <div class="dep-badge p-red pill">EXIT · ONE-OFF</div>
+        <div class="dep-type" style="color:var(--red)">DEPLOYMENT 3 · TWO TRANSACTIONS · OCT 2027</div>
+        <div class="dep-title">Exit Quant ELSS → UTI Nifty50</div>
+        <div class="dep-amount" style="color:var(--red)">~₹73,000</div>
+        <div class="dep-detail"><strong>Oct 1:</strong> Redeem full Quant ELSS (all units). Cross-AMC — redeem and reinvest manually.<br><strong>Oct 7–8:</strong> Full proceeds into UTI Nifty50 Index Fund (Direct, same folio).</div>
+        <div class="dep-meta">
+          <span class="dep-tag">NOT STP — one lump sum</span>
+          <span class="dep-tag">LTCG ~₹16K · Zero tax</span>
+          <span class="dep-tag">Lock-in ends Oct 2027</span>
+        </div>
+        <div class="ib red"><div class="ib-l" style="color:var(--red)">WHY NOT STP FOR ELSS</div>ELSS is small (₹73K). STP overhead not worth it. Also Quant→UTI is cross-AMC. Single lump sum reinvestment is cleanest. LTCG ₹16K is well within ₹1.25L annual exemption.</div>
+      </div>
+
+      <!-- New SIPs -->
+      <div class="dep-card auto">
+        <div class="dep-badge p-grn pill">AUTO · PERMANENT</div>
+        <div class="dep-type" style="color:var(--grn)">DEPLOYMENT 4 · SETUP ONCE · APR 1 2027</div>
+        <div class="dep-title">New SIP Structure — 2 SIPs, 4 mandates</div>
+        <div class="dep-amount" style="color:var(--grn)">₹13,500/month start</div>
+        <div class="dep-detail">
+          <strong>SIP-A ₹10K with 5% step-up:</strong> UTI Nifty50 ₹6K + Motilal MC150 Index ₹4K<br>
+          <strong>SIP-B ₹3.5K fixed:</strong> UTI Nifty50 ₹2K + Motilal MC150 Index ₹1.5K<br>
+          Cancel existing ₹5K UTI Nifty50 SIP in March 2027 first.
+        </div>
+        <div class="dep-meta">
+          <span class="dep-tag">Duration: 20 years</span>
+          <span class="dep-tag">5% step-up on SIP-A</span>
+          <span class="dep-tag">Grows to ₹32.9K/mo by 2046</span>
+        </div>
+      </div>
+
+      <!-- FD1 -->
+      <div class="dep-card oneoff">
+        <div class="dep-badge p-gold pill">ONE-OFF · AUG 2028</div>
+        <div class="dep-type" style="color:var(--gold)">DEPLOYMENT 5 · FD1 MATURITY · ₹13.58L</div>
+        <div class="dep-title">FD1 Split: Emergency Fund + Nifty50</div>
+        <div class="dep-detail">
+          <strong>₹10,00,000 → Emergency Fund</strong> in liquid fund or short-duration FD. Keep completely separate — never invest this. This is your financial buffer.<br><br>
+          <strong>₹3,58,000 → UTI Nifty50 lump sum.</strong> Not STP — amount is moderate, deploy at once.
+        </div>
+        <div class="dep-meta">
+          <span class="dep-tag">NOT STP — one-off lump sum</span>
+          <span class="dep-tag">EF: separate folio</span>
+          <span class="dep-tag">No LTCG — fresh purchase</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pn">
+    <div class="pn-h"><span class="pn-t">Complete Action Schedule · Apr 2026 – Aug 2028</span><span class="pill p-org">17 ACTIONS TOTAL</span></div>
+    <div class="pn-b" style="padding:0">
+      <table class="tbl">
+        <thead><tr><th>DATE</th><th>ACTION</th><th>FROM</th><th>TO</th><th>AMOUNT</th><th>TYPE</th><th>NOTE</th></tr></thead>
+        <tbody id="t-ph1"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PHASE 2 ══ -->
+<div class="page" id="page-ph2">
+  <div class="ph"><h2>Phase 2 · FD2 Deployment</h2><p>Jan 2029 · ₹19.35L · 3 transactions · All one-off lump sums</p></div>
+  <div class="g4">
+    <div class="k gold"><div class="kl">FD2 MATURES</div><div class="kv gold">₹19.35L</div><div class="ks">Jan 2029</div></div>
+    <div class="k pur"><div class="kl">→ NPS TIER 1</div><div class="kv pur">₹10,00,000</div><div class="ks">ONE-OFF lump sum · eNPS</div></div>
+    <div class="k blu"><div class="kl">→ NIFTY50 (60%)</div><div class="kv blu">₹5,61,000</div><div class="ks">ONE-OFF · UTI Direct</div></div>
+    <div class="k grn"><div class="kl">→ MC150 IDX (40%)</div><div class="kv grn">₹3,74,000</div><div class="ks">ONE-OFF · Motilal Direct</div></div>
+  </div>
+
+  <div class="g2">
+    <div>
+      <div class="dep-card oneoff">
+        <div class="dep-badge p-gold pill">ONE-OFF · JAN 1–5</div>
+        <div class="dep-type" style="color:var(--gold)">TRANSACTION 1 OF 3</div>
+        <div class="dep-title">₹10L → NPS Tier 1 via eNPS</div>
+        <div class="dep-amount" style="color:var(--pur)">₹10,00,000</div>
+        <div class="dep-detail">Log into enps.nsdl.com or bank NPS portal. Select Tier 1. Enter PRAN. Verify Active Choice E75/C13/G12 is set. Pay via net banking. NPS auto-rebalances to your allocation. Single lump sum — no STP needed inside NPS.</div>
+        <div class="dep-meta"><span class="dep-tag">NOT STP — direct NPS</span><span class="dep-tag">E75/C13/G12</span><span class="dep-tag">Grows 11% for 18yr → ₹67.2L</span></div>
+      </div>
+      <div class="dep-card oneoff">
+        <div class="dep-badge p-gold pill">ONE-OFF · JAN 6–8</div>
+        <div class="dep-type" style="color:var(--gold)">TRANSACTION 2 OF 3</div>
+        <div class="dep-title">₹5.61L → UTI Nifty50 Index (Direct)</div>
+        <div class="dep-amount" style="color:var(--blu)">₹5,61,000</div>
+        <div class="dep-detail">Lump sum — not STP. Amount is ₹5.61L, manageable for single deployment. Same UTI folio. 60% of ₹9.35L balance. Fresh purchase — zero LTCG.</div>
+        <div class="dep-meta"><span class="dep-tag">NOT STP — lump sum ok</span><span class="dep-tag">60% of MF portion</span><span class="dep-tag">Same UTI folio</span></div>
+      </div>
+      <div class="dep-card oneoff">
+        <div class="dep-badge p-gold pill">ONE-OFF · JAN 6–8</div>
+        <div class="dep-type" style="color:var(--gold)">TRANSACTION 3 OF 3</div>
+        <div class="dep-title">₹3.74L → Motilal MC150 Index (Direct)</div>
+        <div class="dep-amount" style="color:var(--grn)">₹3,74,000</div>
+        <div class="dep-detail">Lump sum — not STP. 40% of ₹9.35L balance. Same Motilal folio. Mirrors ongoing SIP split. Fresh purchase.</div>
+        <div class="dep-meta"><span class="dep-tag">NOT STP — lump sum ok</span><span class="dep-tag">40% of MF portion</span><span class="dep-tag">Same Motilal folio</span></div>
+      </div>
+      <div class="ib gold"><div class="ib-l" style="color:var(--gold)">WHY NO STP FOR FD2 MF PORTION?</div>₹9.35L split into two instruments is not large enough to justify STP friction. FD2 was a fixed instrument — you had no market exposure during holding. One-day deployment is fine at this size. STP is reserved for ₹15L+ deployments (see Phase 4).</div>
+    </div>
+    <div>
+      <div class="pn">
+        <div class="pn-h"><span class="pn-t">NPS ₹10L Impact</span></div>
+        <div class="pn-b">
+          <div class="sr"><div class="sr-l">Deployed at Year 3 (Jan 2029)</div><div class="sr-v gold">₹10L</div></div>
+          <div class="sr"><div class="sr-l">Grows @ 11% for 18 years to 2047</div><div class="sr-v pur">₹67.2L</div></div>
+          <div class="sr"><div class="sr-l">% of total NPS corpus (₹2.50 Cr)</div><div class="sr-v">26.9%</div></div>
+          <div class="sr"><div class="sr-l">80CCD(1B) deduction</div><div class="sr-v gold">₹50K (if not yet used)</div></div>
+          <div class="sr"><div class="sr-l">Tax saved @ 30%</div><div class="sr-v grn">~₹15K</div></div>
+          <div class="ib blu"><div class="ib-l" style="color:var(--blu)">COMPOUNDING POWER</div>This single ₹10L lump sum in 2029 becomes ₹67.2L by 2047 — a 6.7× return. Deploying to NPS early (not just annual ₹1L) is the highest-impact action in the entire plan after SIPs.</div>
+        </div>
+      </div>
+      <div class="pn">
+        <div class="pn-h"><span class="pn-t">Tax on FD2 Deployment</span><span class="pill p-grn">ZERO LTCG</span></div>
+        <div class="pn-b">
+          <div class="sr"><div class="sr-l">FD2 maturity — taxable?</div><div class="sr-v gold">FD interest = taxable income</div></div>
+          <div class="sr"><div class="sr-l">MF purchases from FD proceeds</div><div class="sr-v grn">Fresh purchase · Zero LTCG</div></div>
+          <div class="sr"><div class="sr-l">NPS contribution deductible</div><div class="sr-v grn">₹50K under 80CCD(1B)</div></div>
+          <div class="sr"><div class="sr-l">FY 2028–29 LTCG from any redemption</div><div class="sr-v grn">₹0 — only purchases</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PHASE 3 ══ -->
+<div class="page" id="page-ph3">
+  <div class="ph"><h2>Phase 3 · Compounding Years</h2><p>Jan 2029 – Mar 2033 · Zero actions needed · Everything automatic</p></div>
+  <div class="g4">
+    <div class="k grn"><div class="kl">MONTHLY SIPs</div><div class="kv grn">₹13.5K+</div><div class="ks">5% step-up from Apr 27</div></div>
+    <div class="k gold"><div class="kl">NPS ANNUAL</div><div class="kv gold">₹1L/yr</div><div class="ks">Every April · eNPS</div></div>
+    <div class="k blu"><div class="kl">PPF ANNUAL</div><div class="kv blu">₹1.5L/yr</div><div class="ks">Apr 29, 30, 31, 32 (4 more)</div></div>
+    <div class="k org"><div class="kl">MANUAL ACTIONS</div><div class="kv org">0</div><div class="ks">Everything auto</div></div>
+  </div>
+
+  <div class="g2">
+    <div class="pn">
+      <div class="pn-h"><span class="pn-t">What Runs Automatically</span><span class="pill p-grn">NO ACTION NEEDED</span></div>
+      <div class="pn-b" style="padding:0 18px">
+        <div class="dep-card auto" style="margin-top:12px">
+          <div class="dep-type" style="color:var(--grn)">MONTHLY · AUTO</div>
+          <div class="dep-title">SIP-A: UTI Nifty50 + MC150 Index (step-up)</div>
+          <div class="dep-amount" style="color:var(--grn)">₹6K + ₹4K = ₹10K/mo → grows 5%/yr</div>
+          <div class="dep-detail">Mandates set Apr 2027. Step-up increments automatically each April. No action needed ever.</div>
+          <div class="dep-meta"><span class="dep-tag">AUTO — no action</span><span class="dep-tag">5% step-up/yr</span></div>
+        </div>
+        <div class="dep-card auto">
+          <div class="dep-type" style="color:var(--grn)">MONTHLY · AUTO</div>
+          <div class="dep-title">SIP-B: UTI Nifty50 + MC150 Index (fixed)</div>
+          <div class="dep-amount" style="color:var(--grn)">₹2K + ₹1.5K = ₹3.5K/mo fixed</div>
+          <div class="dep-detail">Mandate set Apr 2027. Fixed amount, no step-up. Runs for 20 years.</div>
+          <div class="dep-meta"><span class="dep-tag">AUTO — no action</span><span class="dep-tag">Fixed amount</span></div>
+        </div>
+        <div class="dep-card oneoff">
+          <div class="dep-type" style="color:var(--gold)">ANNUAL · APRIL · ONE-OFF EACH YEAR</div>
+          <div class="dep-title">NPS Contribution via eNPS</div>
+          <div class="dep-amount" style="color:var(--gold)">₹1,00,000/year</div>
+          <div class="dep-detail">Manual each April — log into eNPS, contribute ₹1L to Tier 1. Claim ₹50K under 80CCD(1B) in ITR. Tax saved: ~₹15K/year at 30% slab.</div>
+          <div class="dep-meta"><span class="dep-tag">ONE-OFF each April</span><span class="dep-tag">80CCD(1B) ₹50K deduction</span></div>
+        </div>
+        <div class="dep-card oneoff" style="margin-bottom:14px">
+          <div class="dep-type" style="color:var(--gold)">ANNUAL · APRIL · ONE-OFF EACH YEAR</div>
+          <div class="dep-title">PPF Contribution (Apr 2029, 2030, 2031, 2032)</div>
+          <div class="dep-amount" style="color:var(--blu)">₹1,50,000/year</div>
+          <div class="dep-detail">4 remaining contributions after FD2 year. Each April. 80C deduction ₹1.5L/year. PPF matures Apr 2033.</div>
+          <div class="dep-meta"><span class="dep-tag">ONE-OFF each April</span><span class="dep-tag">80C full ₹1.5L</span><span class="dep-tag">Last: Apr 2032</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="pn">
+      <div class="pn-h"><span class="pn-t">Corpus Milestones This Phase</span></div>
+      <div class="pn-b">
+        <div class="sr"><div class="sr-l">Post FD2 deploy (Jan 2029)</div><div class="sr-v gold">~₹52L total</div></div>
+        <div class="sr"><div class="sr-l">End 2029</div><div class="sr-v">₹71.7L</div></div>
+        <div class="sr"><div class="sr-l">End 2030</div><div class="sr-v">₹83.4L</div></div>
+        <div class="sr"><div class="sr-l">End 2031</div><div class="sr-v">₹96.6L</div></div>
+        <div class="sr"><div class="sr-l">End 2032</div><div class="sr-v">₹1.11 Cr</div></div>
+        <div class="sr"><div class="sr-l">PPF matures Apr 2033</div><div class="sr-v gold">~₹23.9L</div></div>
+        <div class="sr"><div class="sr-l">SIP step-up by Apr 2029</div><div class="sr-v grn">₹14K/mo total</div></div>
+        <div class="sr"><div class="sr-l">SIP step-up by Apr 2031</div><div class="sr-v grn">₹14.5K/mo total</div></div>
+        <div class="ib grn" style="margin-top:8px"><div class="ib-l" style="color:var(--grn)">THIS IS YOUR BEST PHASE</div>Zero decisions. Zero manual work (except NPS+PPF each April). 4 years of compounding. Your only job: don't stop SIPs. Don't panic during corrections. Markets go down? Great — SIPs buy cheap.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PHASE 4 ══ -->
+<div class="page" id="page-ph4">
+  <div class="ph"><h2>Phase 4 · PPF Deployment</h2><p>Apr 2033 · ₹23.9L · NPS one-off + Liquid STP over 6 months</p></div>
+  <div class="g4">
+    <div class="k gold"><div class="kl">PPF MATURES</div><div class="kv gold">₹23.9L</div><div class="ks">Apr 2033 · Tax-free</div></div>
+    <div class="k pur"><div class="kl">→ NPS ONE-OFF</div><div class="kv pur">₹8,00,000</div><div class="ks">Lump sum via eNPS</div></div>
+    <div class="k tel"><div class="kl">→ MF VIA STP</div><div class="kv tel">₹15.9L</div><div class="ks">Liquid fund → 6 months</div></div>
+    <div class="k grn"><div class="kl">NPS IMPACT 2047</div><div class="kv grn">₹34.5L</div><div class="ks">₹8L × 11% × 14yr</div></div>
+  </div>
+
+  <div class="g2">
+    <div>
+      <div class="dep-card oneoff">
+        <div class="dep-badge p-gold pill">ONE-OFF · APR 1</div>
+        <div class="dep-type" style="color:var(--gold)">TRANSACTION 1 · IMMEDIATE</div>
+        <div class="dep-title">₹8L → NPS Tier 1 via eNPS</div>
+        <div class="dep-amount" style="color:var(--pur)">₹8,00,000</div>
+        <div class="dep-detail">Same as FD2 NPS contribution. eNPS portal. Tier 1. E75/C13/G12. No STP — NPS is a direct contribution, not a market-timed investment. Single transaction.</div>
+        <div class="dep-meta"><span class="dep-tag">NOT STP — direct NPS</span><span class="dep-tag">Same day as PPF maturity</span><span class="dep-tag">80CCD(1B) ₹50K if available</span></div>
+      </div>
+
+      <div class="dep-card" style="border-left:3px solid var(--tel)">
+        <div class="dep-badge p-tel pill">PARK FIRST · APR 1</div>
+        <div class="dep-type" style="color:var(--tel)">TRANSACTION 2 · BEFORE STP</div>
+        <div class="dep-title">₹15.9L → Liquid Fund (parking)</div>
+        <div class="dep-amount" style="color:var(--tel)">₹15,90,000</div>
+        <div class="dep-detail">DO NOT deploy directly to equity. Park in liquid fund first — earns ~7% while waiting for STP. This is the holding account. Choose a liquid fund from same AMC as your Nifty50 or MC150 to enable seamless STP if available.</div>
+        <div class="dep-meta"><span class="dep-tag">Earns ~7% while parked</span><span class="dep-tag">Same-day as PPF maturity</span><span class="dep-tag">No LTCG on liquid fund short hold</span></div>
+      </div>
+
+      <div class="dep-card stp">
+        <div class="dep-badge p-blu pill">STP · 6 MONTHS</div>
+        <div class="dep-type" style="color:var(--blu)">TRANSACTION 3 · APR–SEP 2033</div>
+        <div class="dep-title">STP: Liquid → UTI Nifty50 (60%)</div>
+        <div class="dep-amount" style="color:var(--blu)">₹1,59,000/month × 6</div>
+        <div class="dep-detail">If UTI has a liquid fund: set up cross-fund STP within UTI on Apr 1. If not: manual monthly on 1st of each month — redeem from liquid, invest in UTI Nifty50 on 3rd.</div>
+        <div class="dep-meta"><span class="dep-tag">DURATION: 6 months</span><span class="dep-tag">TOTAL: ₹9,54,000</span><span class="dep-tag">Apr–Sep 2033</span><span class="dep-tag">60% of ₹15.9L</span></div>
+      </div>
+
+      <div class="dep-card stp">
+        <div class="dep-badge p-blu pill">STP · 6 MONTHS</div>
+        <div class="dep-type" style="color:var(--blu)">TRANSACTION 4 · APR–SEP 2033</div>
+        <div class="dep-title">STP: Liquid → Motilal MC150 Index (40%)</div>
+        <div class="dep-amount" style="color:var(--grn)">₹1,06,000/month × 6</div>
+        <div class="dep-detail">Parallel to Nifty50 STP. If Motilal liquid fund available: STP within Motilal. Otherwise manual monthly on same dates as above.</div>
+        <div class="dep-meta"><span class="dep-tag">DURATION: 6 months</span><span class="dep-tag">TOTAL: ₹6,36,000</span><span class="dep-tag">Apr–Sep 2033</span><span class="dep-tag">40% of ₹15.9L</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="pn" style="margin-bottom:14px">
+        <div class="pn-h"><span class="pn-t">Why STP for PPF but NOT for FD2?</span></div>
+        <div class="pn-b">
+          <div class="sr"><div class="sr-l">FD2 MF portion</div><div class="sr-v">₹9.35L → ONE-OFF ✓</div></div>
+          <div class="sr"><div class="sr-l">PPF MF portion</div><div class="sr-v gold">₹15.9L → STP 6mo ✓</div></div>
+          <div class="sr"><div class="sr-l">Size threshold for STP decision</div><div class="sr-v">~₹12–15L</div></div>
+          <div class="sr"><div class="sr-l">At age 46 — wrong entry can cost</div><div class="sr-v red">₹2–3L recovery time</div></div>
+          <div class="ib gold"><div class="ib-l" style="color:var(--gold)">STP DECISION RULE</div>Below ₹10L → deploy lump sum. ₹10–15L → judgement call. Above ₹15L → always STP. The liquid fund earns ~7% waiting, so cost of caution is near-zero. The downside of bad timing at ₹15.9L is too high to skip.</div>
+        </div>
+      </div>
+      <div class="pn">
+        <div class="pn-h"><span class="pn-t">PPF Maturity Options</span><span class="pill p-grn">FULL WITHDRAWAL ✓</span></div>
+        <div class="pn-b">
+          <div class="sr"><div class="sr-l">Full withdrawal (chosen)</div><div class="sr-v grn">₹23.9L equity @ 12–13% CAGR</div></div>
+          <div class="sr"><div class="sr-l">→ grows to 2047 at ~12%</div><div class="sr-v grn">~₹1.3 Cr</div></div>
+          <div class="sr"><div class="sr-l">Extend PPF 14yr @ 7.1%</div><div class="sr-v red">~₹62L</div></div>
+          <div class="sr"><div class="sr-l">Equity advantage vs PPF</div><div class="sr-v grn">+₹68L extra at 2047</div></div>
+          <div class="ib grn"><div class="ib-l" style="color:var(--grn)">WHY WITHDRAW FULLY</div>At age 46 with 14yr horizon, equity compounding beats PPF extension by ₹68L. PPF extension only makes sense if you need a guaranteed debt anchor — you have NPS G12% + C13% for that.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PHASE 5 ══ -->
+<div class="page" id="page-ph5">
+  <div class="ph"><h2>Phase 5 · Glide Path</h2><p>2041–2046 · Annual STP from equity to hybrid/debt · Crash protection built-in</p></div>
+  <div class="g4">
+    <div class="k blu"><div class="kl">START 2041 (AGE 54)</div><div class="kv blu">~₹3.83 Cr</div><div class="ks">Begin annual de-risking</div></div>
+    <div class="k grn"><div class="kl">BUCKET 1 TARGET</div><div class="kv grn">₹30L</div><div class="ks">2yr SWP runway in liquid</div></div>
+    <div class="k gold"><div class="kl">BUCKET 2 TARGET</div><div class="kv gold">₹70L</div><div class="ks">4–5yr in BAF/Hybrid</div></div>
+    <div class="k tel"><div class="kl">BUCKET 3 HOLDS</div><div class="kv tel">~₹4.4 Cr</div><div class="ks">Pure equity — rides crashes</div></div>
+  </div>
+
+  <div class="g2">
+    <div class="pn">
+      <div class="pn-h"><span class="pn-t">Annual Glide Path STPs · 2041–2046</span><span class="pill p-blu">STP EACH APRIL</span></div>
+      <div class="pn-b" style="padding:12px 18px">
+        <div style="display:flex;gap:12px;margin-bottom:10px;font-family:'Fira Code',monospace;font-size:8.5px;color:var(--t3)">
+          <span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:8px;background:linear-gradient(90deg,var(--red),var(--org));border-radius:2px;display:inline-block"></span>Equity</span>
+          <span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:8px;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:2px;display:inline-block"></span>Hybrid/BAF</span>
+          <span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:8px;background:linear-gradient(90deg,var(--blu),var(--tel));border-radius:2px;display:inline-block"></span>Debt/Liquid</span>
+        </div>
+        <div id="d-glide"></div>
+        <div class="dep-card stp" style="margin-top:10px">
+          <div class="dep-type" style="color:var(--blu)">STP EACH APRIL · 2041–2046</div>
+          <div class="dep-title">Annual Equity → BAF/Liquid STP</div>
+          <div class="dep-detail"><strong>How:</strong> Each April, set up STPs of ~10% of equity corpus/month for 4–6 months, moving from UTI Nifty50 and Motilal MC150 into BAF (Tata) and Liquid fund.<br><strong>Amount varies by year</strong> based on corpus size. 2041: ~₹25–30L/yr. 2046: ~₹50–60L/yr.</div>
+          <div class="dep-meta"><span class="dep-tag">STP — not lump sum</span><span class="dep-tag">4–6 months each year</span><span class="dep-tag">10% of equity/yr</span></div>
+        </div>
+        <div class="ib blu"><div class="ib-l" style="color:var(--blu)">CRASH PROTECTION MATH</div>By 2046 with 30% equity (₹4.79 Cr): a 60% crash only hits ₹1.28 Cr (27% portfolio loss). Without glide path it would have hit ₹2.45 Cr (51% loss). 5 years of STP saved you ₹1.17 Cr in downside.</div>
+      </div>
+    </div>
+    <div>
+      <div class="pn" style="margin-bottom:14px">
+        <div class="pn-h"><span class="pn-t">3-Bucket System · Apr 2047</span></div>
+        <div class="pn-b">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:11px">
+            <div class="bkt" style="border-color:rgba(59,201,109,.3)"><div class="bkt-t" style="color:var(--grn)">BUCKET 1</div><div class="bkt-v" style="color:var(--grn)">₹30L</div><div class="bkt-d">Liquid fund. 2yr SWP runway (₹1.25L×24). Refilled quarterly from Bucket 2.</div></div>
+            <div class="bkt" style="border-color:rgba(212,168,67,.3)"><div class="bkt-t" style="color:var(--gold)">BUCKET 2</div><div class="bkt-v" style="color:var(--gold)">₹70L</div><div class="bkt-d">BAF + Hybrid. Refills B1. Refilled from B3 annually when equity is healthy.</div></div>
+            <div class="bkt" style="border-color:rgba(43,191,176,.3)"><div class="bkt-t" style="color:var(--tel)">BUCKET 3</div><div class="bkt-v" style="color:var(--tel)">~₹4.4 Cr</div><div class="bkt-d">Pure equity. Never sell during crash. B1+B2 give 5–7yr runway.</div></div>
+          </div>
+          <div class="ib gold"><div class="ib-l" style="color:var(--gold)">CRASH PROOF LOGIC</div>50% crash: B3 halves to ₹2.2 Cr. B1+B2 (₹100L) = 6.6yr withdrawals. Every Indian crash since 1990 recovered in under 4 years. You never have to sell equity at a loss.</div>
+        </div>
+      </div>
+      <div class="pn">
+        <div class="pn-h"><span class="pn-t">Crash Impact by Glide Year</span></div>
+        <div class="pn-b" style="padding:0">
+          <table class="tbl">
+            <thead><tr><th>YEAR</th><th>EQUITY%</th><th>CORPUS</th><th>60% CRASH HIT</th><th>PORTFOLIO FALLS</th></tr></thead>
+            <tbody id="t-crash-glide"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PHASE 6 ══ -->
+<div class="page" id="page-ph6">
+  <div class="ph"><h2>Phase 6 · Withdrawal Activation</h2><p>Apr 2047 · Age 60 · ₹2,00,000/month exact · NPS + MF SWP</p></div>
+  <div class="g5">
+    <div class="k grn"><div class="kl">MF CORPUS</div><div class="kv grn">₹5.44 Cr</div><div class="ks">₹1.15 Cr above SWR need</div></div>
+    <div class="k pur"><div class="kl">NPS CORPUS</div><div class="kv pur">₹2.50 Cr</div><div class="ks">40% lump + 60% annuity</div></div>
+    <div class="k gold"><div class="kl">NPS LUMP SUM</div><div class="kv gold">₹99.8L</div><div class="ks">Tax-free → reinvest</div></div>
+    <div class="k tel"><div class="kl">NPS ANNUITY</div><div class="kv tel">₹74,900</div><div class="ks">/month · fixed for life</div></div>
+    <div class="k org"><div class="kl">TOTAL MONTHLY</div><div class="kv org">₹2,00,000</div><div class="ks">EXACT TARGET ✓</div></div>
+  </div>
+
+  <div class="g2">
+    <div>
+      <div class="dep-card oneoff">
+        <div class="dep-badge p-gold pill">ONE-OFF · APR 2047</div>
+        <div class="dep-type" style="color:var(--gold)">STEP 1</div>
+        <div class="dep-title">File NPS Withdrawal: 40% lump + 60% annuity</div>
+        <div class="dep-amount" style="color:var(--pur)">₹2.50 Cr</div>
+        <div class="dep-detail">At age 60, exit NPS. 40% lump sum (₹99.8L) is tax-free. 60% must go to annuity. Select annuity service provider (LIC/SBI/HDFC Life). Choose "Life annuity with return of purchase price" — protects principal for heirs. Monthly annuity starts automatically.</div>
+        <div class="dep-meta"><span class="dep-tag">NOT STP — single NPS exit</span><span class="dep-tag">40% lump = ₹99.8L tax-free</span><span class="dep-tag">Annuity = ₹74.9K/mo</span></div>
+      </div>
+
+      <div class="dep-card stp">
+        <div class="dep-badge p-blu pill">ALLOCATION · APR 2047</div>
+        <div class="dep-type" style="color:var(--blu)">STEP 2 · NPS LUMP SUM DEPLOYMENT</div>
+        <div class="dep-title">₹99.8L → Buckets 1 + 2 (no STP needed)</div>
+        <div class="dep-amount" style="color:var(--gold)">₹99.8L</div>
+        <div class="dep-detail"><strong>₹30L → Liquid Fund (Bucket 1):</strong> 2yr SWP runway immediately available.<br><strong>₹69.8L → BAF/Hybrid (Bucket 2):</strong> Lump sum — not STP. You're moving into safety assets, not timing equity markets.</div>
+        <div class="dep-meta"><span class="dep-tag">₹30L → Liquid (B1)</span><span class="dep-tag">₹69.8L → BAF (B2)</span><span class="dep-tag">No STP needed — defensive assets</span></div>
+      </div>
+
+      <div class="dep-card auto">
+        <div class="dep-badge p-grn pill">AUTO · PERMANENT</div>
+        <div class="dep-type" style="color:var(--grn)">STEP 3 · SETUP ONCE</div>
+        <div class="dep-title">SWP: BAF (Bucket 2) → ₹1,25,100/month</div>
+        <div class="dep-amount" style="color:var(--grn)">₹1,25,100/month</div>
+        <div class="dep-detail">Set up SWP from BAF fund. Bucket 2 BAF generates this monthly. NPS annuity (₹74,900) arrives separately. Combined = ₹2,00,000/month exactly. NPS annuity is automatic from day of activation.</div>
+        <div class="dep-meta"><span class="dep-tag">SWP — auto monthly</span><span class="dep-tag">+ NPS ₹74.9K auto = ₹2L total</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="pn" style="margin-bottom:14px">
+        <div class="pn-h"><span class="pn-t">Sustainability Check</span></div>
+        <div class="pn-b">
+          <div class="sr"><div class="sr-l">Total corpus entering retirement</div><div class="sr-v gold">₹6.44 Cr (MF+NPS lump)</div></div>
+          <div class="sr"><div class="sr-l">Annual MF withdrawal</div><div class="sr-v red">₹15.01L/yr</div></div>
+          <div class="sr"><div class="sr-l">Blended return on corpus</div><div class="sr-v grn">9.2%/yr = ₹59.3L</div></div>
+          <div class="sr"><div class="sr-l">Net corpus gain year 1</div><div class="sr-v grn">+₹44.3L</div></div>
+          <div class="sr"><div class="sr-l">Effective withdrawal rate</div><div class="sr-v grn">2.33% — extremely safe</div></div>
+          <div class="sr"><div class="sr-l">Breakeven return needed</div><div class="sr-v grn">2.34% — even savings acct</div></div>
+          <div class="sr"><div class="sr-l">SWR 3.5% on ₹5.44 Cr MF</div><div class="sr-v grn">₹1.59L/mo capacity ✓</div></div>
+          <div class="sr"><div class="sr-l">With 6% annual step-up</div><div class="sr-v tel">Breakeven = 6% (= step-up rate)</div></div>
+        </div>
+      </div>
+      <div class="pn">
+        <div class="pn-h"><span class="pn-t">Post-2047 Income Growth (6% step-up)</span></div>
+        <div class="pn-b" style="padding:0">
+          <table class="tbl">
+            <thead><tr><th>YEAR</th><th>AGE</th><th>MF SWP/MO</th><th>TOTAL/MO</th></tr></thead>
+            <tbody>
+              <tr><td>2047</td><td>60</td><td class="mono grn">₹1,25,100</td><td class="amt amt-org">₹2,00,000</td></tr>
+              <tr><td>2052</td><td>65</td><td class="mono">₹1,67,400</td><td class="amt amt-org">₹2,42,300</td></tr>
+              <tr><td>2057</td><td>70</td><td class="mono">₹2,24,000</td><td class="amt amt-org">₹2,98,900</td></tr>
+              <tr><td>2062</td><td>75</td><td class="mono">₹3,00,000</td><td class="amt amt-org">₹3,74,900</td></tr>
+              <tr><td>2067</td><td>80</td><td class="mono">₹4,01,000</td><td class="amt amt-org">₹4,75,900</td></tr>
+            </tbody>
+          </table>
+          <div class="ib grn" style="margin:10px 18px 14px"><div class="ib-l" style="color:var(--grn)">6% STEP-UP BREAKEVEN</div>At 6% return = breakeven (same as step-up rate). At 9.2% base return, corpus grows from ₹6.44 Cr to ₹51.5 Cr over 30 years even while stepping up 6%/yr.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ POST-RETIREMENT ══ -->
+<div class="page" id="page-postret">
+  <div class="ph"><h2>Post-Retirement Growth · 2047–2077</h2><p>₹2L/mo withdrawal · 6% annual step-up · Corpus grows every year</p></div>
+  <div class="g6">
+    <div class="k gold"><div class="kl">START 2047</div><div class="kv gold">₹6.44 Cr</div><div class="ks">MF + NPS lump reinvested</div></div>
+    <div class="k grn"><div class="kl">ANNUAL RETURN Y1</div><div class="kv grn">₹59.3L</div><div class="ks">9.2% on ₹6.44 Cr</div></div>
+    <div class="k blu"><div class="kl">WITHDRAWAL Y1</div><div class="kv blu">₹15.0L</div><div class="ks">₹1.25L/mo × 12</div></div>
+    <div class="k org"><div class="kl">NET GAIN Y1</div><div class="kv org">+₹44.3L</div><div class="ks">Corpus grows while spending</div></div>
+    <div class="k tel"><div class="kl">CORPUS AGE 70</div><div class="kv tel">₹13.5 Cr</div><div class="ks">2.1× start in 10 years</div></div>
+    <div class="k pur"><div class="kl">CORPUS AGE 80</div><div class="kv pur">₹27.1 Cr</div><div class="ks">4.2× start in 20 years</div></div>
+  </div>
+  <div class="g2">
+    <div class="pn">
+      <div class="pn-h"><span class="pn-t">Corpus Trajectory · 2047–2067</span><div style="display:flex;gap:12px;align-items:center">
+        <span style="display:flex;align-items:center;gap:5px;font-family:'Fira Code',monospace;font-size:9px;color:var(--tel)"><span style="width:10px;height:2.5px;background:var(--tel);border-radius:2px;display:inline-block"></span>Corpus</span>
+        <span style="display:flex;align-items:center;gap:5px;font-family:'Fira Code',monospace;font-size:9px;color:var(--red)"><span style="width:10px;height:2px;border-top:2px dashed var(--red);display:inline-block"></span>Cum. Withdrawn</span>
+      </div></div>
+      <div class="pn-b" style="padding:14px 18px"><canvas id="c-post" height="250"></canvas></div>
+    </div>
+    <div>
+      <div class="pn" style="margin-bottom:14px">
+        <div class="pn-h"><span class="pn-t">Scenario Comparison</span><span class="pill p-gold">STRESS TEST</span></div>
+        <div class="pn-b" style="padding:0">
+          <table class="tbl">
+            <thead><tr><th>RETURN</th><th>AGE 70</th><th>AGE 80</th><th>DEPLETES</th></tr></thead>
+            <tbody>
+              <tr class="crash-good"><td class="mono" style="color:var(--grn)">11.0%</td><td class="amt amt-grn">₹17.6 Cr</td><td class="amt amt-grn">₹42.8 Cr</td><td class="mono" style="color:var(--grn)">Never</td></tr>
+              <tr class="crash-good"><td class="mono" style="color:var(--tel)">9.2% Base</td><td class="amt amt-tel">₹13.5 Cr</td><td class="amt amt-tel">₹27.1 Cr</td><td class="mono" style="color:var(--grn)">Never</td></tr>
+              <tr class="crash-good"><td class="mono" style="color:var(--blu)">7.5%</td><td class="amt amt-blu">₹11.4 Cr</td><td class="amt amt-blu">₹22.3 Cr</td><td class="mono" style="color:var(--grn)">Never</td></tr>
+              <tr class="crash-warn"><td class="mono" style="color:var(--gold)">6.0% Breakeven</td><td class="amt amt-gold">₹9.0 Cr</td><td class="amt amt-gold">₹11.6 Cr</td><td class="mono" style="color:var(--gold)">Age 106</td></tr>
+              <tr class="crash-warn"><td class="mono" style="color:var(--org)">5.0%</td><td class="amt amt-org">₹8.1 Cr</td><td class="amt amt-org">₹8.8 Cr</td><td class="mono" style="color:var(--org)">Age 98</td></tr>
+              <tr class="crash-bad"><td class="mono" style="color:var(--red)">3.0%</td><td class="amt amt-red">₹6.3 Cr</td><td class="amt amt-red">—</td><td class="mono" style="color:var(--red)">Age 89</td></tr>
+            </tbody>
+          </table>
+          <div class="ib gold" style="margin:10px 16px 14px"><div class="ib-l" style="color:var(--gold)">BREAKEVEN = STEP-UP RATE</div>At 6% return = 6% withdrawal step-up → corpus roughly stable. At any return above 6%, corpus grows indefinitely. Breakeven is 2.34% for flat ₹2L withdrawal, 6% for 6% step-up withdrawal.</div>
+        </div>
+      </div>
+      <div class="pn">
+        <div class="pn-h"><span class="pn-t">Sustainability</span></div>
+        <div class="pn-b">
+          <div class="sr"><div class="sr-l">Total MF withdrawn over 20yr (flat)</div><div class="sr-v">₹4.80 Cr</div></div>
+          <div class="sr"><div class="sr-l">Corpus at age 80 despite all withdrawals</div><div class="sr-v grn">₹27–32 Cr</div></div>
+          <div class="sr"><div class="sr-l">You withdraw ₹4.8 Cr, leave ₹27+ Cr</div><div class="sr-v grn">5–7× legacy</div></div>
+          <div class="sr"><div class="sr-l">Net return vs withdrawal (yr 1)</div><div class="sr-v grn">₹59.3L return − ₹15L withdrawn</div></div>
+          <div class="ib grn"><div class="ib-l" style="color:var(--grn)">THE SIMPLE MATH</div>9.2% return on ₹6.44 Cr = ₹59.3L. You withdraw ₹15L. Net: corpus grows ₹44.3L in year 1 alone. By 70 the gap between returns and withdrawal is over ₹1 Cr/year. You're living off the interest on the interest.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pn">
+    <div class="pn-h"><span class="pn-t">Year-by-Year Post-Retirement (9.2% Blended · 6% Withdrawal Step-up)</span><span class="pill p-tel">CORPUS GROWS EVERY YEAR</span></div>
+    <div class="pn-b" style="padding:0"><table class="tbl" id="t-post"></table></div>
+  </div>
+</div>
+
+<!-- ══ CRASH SURVIVAL ══ -->
+<div class="page" id="page-crash">
+  <div class="ph"><h2>Crash Survival Analysis</h2><p>How your plan holds up against 2008-GFC and 2020-COVID type crashes</p></div>
+  <div class="g4">
+    <div class="k grn"><div class="kl">CRASHES 2026–2042</div><div class="kv grn">SAFE</div><div class="ks">Corpus same/better than base</div></div>
+    <div class="k gold"><div class="kl">CRASH 2044–2045</div><div class="kv gold">MANAGED</div><div class="ks">NPS lump bridges any gap</div></div>
+    <div class="k blu"><div class="kl">TWO CRASHES</div><div class="kv blu">₹8.21 Cr</div><div class="ks">+3.4% ABOVE base case</div></div>
+    <div class="k tel"><div class="kl">SIP DURING CRASH</div><div class="kv tel">+100%</div><div class="ks">Extra corpus vs no-crash SIP</div></div>
+  </div>
+
+  <div class="g2">
+    <div class="pn">
+      <div class="pn-h"><span class="pn-t">Crash Survival Matrix</span></div>
+      <div class="pn-b" style="padding:0">
+        <table class="tbl">
+          <thead><tr><th>SCENARIO</th><th>WHEN</th><th>2047 CORPUS</th><th>GOAL MET?</th><th>ACTION</th></tr></thead>
+          <tbody>
+            <tr class="crash-good"><td style="color:var(--grn)">COVID-type −38%<br><span style="font-size:9px;color:var(--t3)">6-month recovery</span></td><td class="mono">Any 2026–2040</td><td class="amt amt-grn">₹7.5–8.2 Cr</td><td class="mono" style="color:var(--grn)">✓ Yes</td><td style="font-size:11px;color:var(--grn)">Do nothing.<br>SIPs continue.</td></tr>
+            <tr class="crash-good"><td style="color:var(--grn)">GFC-type −60%<br><span style="font-size:9px;color:var(--t3)">2yr recovery</span></td><td class="mono">2026–2030<br>(early)</td><td class="amt amt-grn">₹7.8–8.4 Cr</td><td class="mono" style="color:var(--grn)">✓ Yes, above base</td><td style="font-size:11px;color:var(--grn)">Do nothing.*<br>SIPs buy cheap.</td></tr>
+            <tr class="crash-good"><td style="color:var(--grn)">GFC-type −60%<br><span style="font-size:9px;color:var(--t3)">2yr recovery</span></td><td class="mono">2031–2038<br>(mid)</td><td class="amt amt-grn">₹7.2–7.9 Cr</td><td class="mono" style="color:var(--grn)">✓ Yes</td><td style="font-size:11px;color:var(--grn)">Do nothing.<br>Keep SIPs.</td></tr>
+            <tr class="crash-warn"><td style="color:var(--gold)">GFC-type −60%<br><span style="font-size:9px;color:var(--t3)">2yr recovery</span></td><td class="mono">2039–2042<br>(late)</td><td class="amt amt-gold">₹6.5–7.5 Cr</td><td class="mono" style="color:var(--gold)">✓ Yes</td><td style="font-size:11px;color:var(--gold)">Delay glide<br>path 1 year.</td></tr>
+            <tr class="crash-warn"><td style="color:var(--gold)">Worst case −60%<br><span style="font-size:9px;color:var(--t3)">3yr partial recovery</span></td><td class="mono">2044–2045<br>(pre-retire)</td><td class="amt amt-gold">₹5.8–6.5 Cr</td><td class="mono" style="color:var(--gold)">✓ Yes</td><td style="font-size:11px;color:var(--gold)">NPS lump<br>bridges gap.</td></tr>
+            <tr class="crash-good"><td style="color:var(--blu)">Two crashes<br><span style="font-size:9px;color:var(--t3)">2030 GFC + 2040 COVID</span></td><td class="mono">Double hit</td><td class="amt amt-blu">₹8.21 Cr</td><td class="mono" style="color:var(--grn)">✓ Above base</td><td style="font-size:11px;color:var(--grn)">Do nothing<br>both times.</td></tr>
+          </tbody>
+        </table>
+        <div style="padding:10px 16px 14px;font-family:'Fira Code',monospace;font-size:8.5px;color:var(--t3)">* Early crashes HELP — SIPs accumulate 2× units at half NAV. Recovery takes those cheap units to full value.</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="pn" style="margin-bottom:14px">
+        <div class="pn-h"><span class="pn-t">SIP Power During Crashes</span></div>
+        <div class="pn-b">
+          <div class="sr"><div class="sr-l">₹13.5K/mo SIP — 2yr at NAV 100</div><div class="sr-v">3,240 units</div></div>
+          <div class="sr"><div class="sr-l">Same SIP — 2yr at NAV 50 (50% crash)</div><div class="sr-v grn">6,480 units (2×)</div></div>
+          <div class="sr"><div class="sr-l">Value at recovery NAV 110 — no crash</div><div class="sr-v">₹3.56L</div></div>
+          <div class="sr"><div class="sr-l">Value at recovery NAV 110 — with crash</div><div class="sr-v grn">₹7.13L (+100%)</div></div>
+          <div class="ib grn"><div class="ib-l" style="color:var(--grn)">THE INVESTOR'S PARADOX</div>A SIP investor with a 20yr horizon should want a crash in years 1–10. Every ₹1 invested during a crash is worth ₹2 at recovery. Your plan has ₹13.5K/month of this power working for you.</div>
+        </div>
+      </div>
+      <div class="pn">
+        <div class="pn-h"><span class="pn-t">Your Structural Protections</span></div>
+        <div class="pn-b">
+          <div class="sr"><div class="sr-l">NPS G12% + C13% = 25% bonds</div><div class="sr-v grn">Shock absorber — barely moves</div></div>
+          <div class="sr"><div class="sr-l">BAF (Tata) — auto reduces equity in rally</div><div class="sr-v grn">Buys more equity in crash</div></div>
+          <div class="sr"><div class="sr-l">FD1 + FD2 — crash-proof</div><div class="sr-v grn">Fixed returns regardless</div></div>
+          <div class="sr"><div class="sr-l">PPF — zero market risk</div><div class="sr-v grn">7.1% guaranteed</div></div>
+          <div class="sr"><div class="sr-l">FD2 matures Jan 2029 — you buy MF</div><div class="sr-v grn">Post-crash entry if crash in 2028</div></div>
+          <div class="sr"><div class="sr-l">Glide path 2041–46 — reduces equity</div><div class="sr-v grn">Max 27% loss by 2046</div></div>
+          <div class="sr"><div class="sr-l">The rule that makes it all work</div><div class="sr-v gold">Never sell. Never stop SIPs.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pn">
+    <div class="pn-h"><span class="pn-t">Two-Crash Scenario · Detailed (2030 GFC + 2040 COVID)</span></div>
+    <div class="pn-b" style="padding:0">
+      <table class="tbl">
+        <thead><tr><th>YEAR</th><th>EVENT</th><th>CORPUS (CRASH SCENARIO)</th><th>BASE CASE</th><th>DIFFERENCE</th></tr></thead>
+        <tbody>
+          <tr><td>2026</td><td style="color:var(--t3)">Start</td><td class="amt">₹0.206 Cr</td><td class="mono">₹0.206 Cr</td><td class="mono">—</td></tr>
+          <tr class="crash-bad"><td>2030</td><td style="color:var(--red)">🔴 GFC Crash (−55%)</td><td class="amt amt-red">₹0.457 Cr (at bottom)</td><td class="mono">₹0.717 Cr</td><td class="mono" style="color:var(--red)">−36%</td></tr>
+          <tr class="crash-warn"><td>2032</td><td style="color:var(--gold)">Recovery phase</td><td class="amt amt-gold">₹0.896 Cr</td><td class="mono">₹0.966 Cr</td><td class="mono" style="color:var(--gold)">−7%</td></tr>
+          <tr class="crash-good"><td>2036</td><td style="color:var(--grn)">Fully recovered + SIP bonus</td><td class="amt amt-grn">₹2.052 Cr</td><td class="mono">₹2.019 Cr</td><td class="mono" style="color:var(--grn)">+1.6%</td></tr>
+          <tr class="crash-bad"><td>2040</td><td style="color:var(--red)">🟡 COVID Crash (−40%)</td><td class="amt amt-red">₹2.626 Cr (at bottom)</td><td class="mono">₹3.374 Cr</td><td class="mono" style="color:var(--red)">−22%</td></tr>
+          <tr class="crash-good"><td>2041</td><td style="color:var(--grn)">COVID fast recovery</td><td class="amt amt-grn">₹3.901 Cr</td><td class="mono">₹3.826 Cr</td><td class="mono" style="color:var(--grn)">+2%</td></tr>
+          <tr class="crash-good"><td>2047</td><td style="color:var(--grn)">Final — both crashes absorbed</td><td class="amt amt-grn">₹8.21 Cr</td><td class="mono">₹7.94 Cr</td><td class="mono" style="color:var(--grn)">+3.4%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══ NPS ══ -->
+<div class="page" id="page-nps">
+  <div class="ph"><h2>NPS Plan · 2026–2047</h2><p>Personal account · PRAN · E75/C13/G12 · Active Choice</p></div>
+  <div class="g5">
+    <div class="k gold"><div class="kl">CURRENT</div><div class="kv gold">₹8.57L</div></div>
+    <div class="k pur"><div class="kl">ANNUAL ₹1L/YR</div><div class="kv pur">₹1L/yr</div><div class="ks">Apr 2026–2046 (20yr)</div></div>
+    <div class="k blu"><div class="kl">FD2 LUMP SUM</div><div class="kv blu">₹10L</div><div class="ks">Jan 2029 · ONE-OFF</div></div>
+    <div class="k tel"><div class="kl">PPF LUMP SUM</div><div class="kv tel">₹8L</div><div class="ks">Apr 2033 · ONE-OFF</div></div>
+    <div class="k grn"><div class="kl">CORPUS 2047</div><div class="kv grn">₹2.50 Cr</div><div class="ks">₹74.9K/mo annuity</div></div>
+  </div>
+  <div class="g2">
+    <div class="pn">
+      <div class="pn-h"><span class="pn-t">Corpus Build-Up by Source</span></div>
+      <div class="pn-b" style="padding:0">
+        <table class="tbl">
+          <thead><tr><th>SOURCE</th><th>INVESTED</th><th>CORPUS 2047</th><th>% OF TOTAL</th></tr></thead>
+          <tbody>
+            <tr><td>Existing ₹8.57L (Apr 2026)</td><td class="amt amt-gold">₹8.57L</td><td class="amt amt-gold">₹76.7L</td><td class="mono">30.7%</td></tr>
+            <tr><td>₹1L/yr × 20yr (2026–2045)</td><td class="mono">₹20L total</td><td class="amt amt-pur" style="color:var(--pur)">₹71.3L</td><td class="mono">28.5%</td></tr>
+            <tr><td>FD2 ₹10L (Jan 2029)</td><td class="amt amt-blu">₹10L</td><td class="amt amt-blu">₹67.2L</td><td class="mono">26.9%</td></tr>
+            <tr><td>PPF ₹8L (Apr 2033)</td><td class="amt amt-tel">₹8L</td><td class="amt amt-tel">₹34.5L</td><td class="mono">13.8%</td></tr>
+            <tr class="ph-row"><td colspan="2">TOTAL INVESTED ₹46.57L</td><td>TOTAL 2047: ₹2.50 Cr</td><td>5.37× return</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="pn" style="margin-bottom:14px">
+        <div class="pn-h"><span class="pn-t">Allocation & Key Rules</span></div>
+        <div class="pn-b">
+          <div class="ar"><div class="ar-dot" style="background:var(--red)"></div><div class="ar-name">Equity (E) — Active Choice</div><div class="ar-pct">75%</div><div class="ar-val">Max allowed</div></div>
+          <div class="ar"><div class="ar-dot" style="background:var(--blu)"></div><div class="ar-name">Corporate Bonds (C)</div><div class="ar-pct">13%</div></div>
+          <div class="ar"><div class="ar-dot" style="background:var(--grn)"></div><div class="ar-name">Govt Securities (G)</div><div class="ar-pct">12%</div></div>
+          <div class="ib gold"><div class="ib-l" style="color:var(--gold)">CRITICAL: KEEP ACTIVE CHOICE</div>Do NOT switch to Auto Choice. Auto Choice reduces equity gradually from age 35. Active Choice keeps E75 until you manually change. At age 60 NPS mandatorily caps equity at 50% — this is fine, you'll be in withdrawal mode anyway.</div>
+        </div>
+      </div>
+      <div class="pn">
+        <div class="pn-h"><span class="pn-t">Annual Tax Saving</span></div>
+        <div class="pn-b">
+          <div class="sr"><div class="sr-l">80CCD(1B) deduction per year</div><div class="sr-v gold">₹50,000</div></div>
+          <div class="sr"><div class="sr-l">Tax saved @ 30% slab</div><div class="sr-v grn">₹15,000/yr</div></div>
+          <div class="sr"><div class="sr-l">Over 20 years</div><div class="sr-v grn">₹3,00,000 total saved</div></div>
+          <div class="sr"><div class="sr-l">40% lump sum at exit (₹99.8L)</div><div class="sr-v grn">Completely tax-free</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PPF ══ -->
+<div class="page" id="page-ppf">
+  <div class="ph"><h2>PPF Plan · 2026–2033</h2><p>₹1.5L/yr × 7 years · Matures Apr 2033 · Full withdrawal</p></div>
+  <div class="g4">
+    <div class="k blu"><div class="kl">CURRENT</div><div class="kv blu">₹6.13L</div></div>
+    <div class="k gold"><div class="kl">REMAINING</div><div class="kv gold">7 × ₹1.5L</div><div class="ks">Apr 26 to Apr 32</div></div>
+    <div class="k grn"><div class="kl">MATURITY</div><div class="kv grn">₹23.9L</div><div class="ks">Apr 2033 @ 7.1%</div></div>
+    <div class="k tel"><div class="kl">TOTAL TAX SAVED</div><div class="kv tel">~₹3.15L</div><div class="ks">80C ₹45K/yr × 7yr</div></div>
+  </div>
+  <div class="g2">
+    <div class="pn">
+      <div class="pn-h"><span class="pn-t">Annual Schedule</span></div>
+      <div class="pn-b" style="padding:0"><table class="tbl" id="t-ppf"></table></div>
+    </div>
+    <div>
+      <div class="pn" style="margin-bottom:14px">
+        <div class="pn-h"><span class="pn-t">Maturity Deployment</span></div>
+        <div class="pn-b">
+          <div class="sr"><div class="sr-l">PPF maturity (tax-free)</div><div class="sr-v gold">₹23.9L</div></div>
+          <div class="sr"><div class="sr-l">→ NPS ONE-OFF lump sum</div><div class="sr-v pur" style="color:var(--pur)">₹8,00,000</div></div>
+          <div class="sr"><div class="sr-l">→ Liquid fund (for STP)</div><div class="sr-v tel" style="color:var(--tel)">₹15,90,000</div></div>
+          <div class="sr"><div class="sr-l">STP Nifty50 (60% of ₹15.9L)</div><div class="sr-v blu">₹1,59,000/mo × 6</div></div>
+          <div class="sr"><div class="sr-l">STP MC150 (40% of ₹15.9L)</div><div class="sr-v grn">₹1,06,000/mo × 6</div></div>
+          <div class="ib blu"><div class="ib-l" style="color:var(--blu)">PPF MATURITY IS 100% TAX-FREE</div>Principal, interest, and withdrawal — all exempt. No LTCG. No TDS. One of the few genuinely tax-free exits in India.</div>
+        </div>
+      </div>
+      <div class="pn">
+        <div class="pn-h"><span class="pn-t">Why Withdraw vs Extend?</span></div>
+        <div class="pn-b">
+          <div class="sr"><div class="sr-l">₹23.9L @ equity 12% for 14yr</div><div class="sr-v grn">→ ~₹1.30 Cr</div></div>
+          <div class="sr"><div class="sr-l">₹23.9L @ PPF 7.1% extended 14yr</div><div class="sr-v red">→ ~₹62L</div></div>
+          <div class="sr"><div class="sr-l">Equity advantage</div><div class="sr-v grn">+₹68L at 2047</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAX ══ -->
+<div class="page" id="page-tax">
+  <div class="ph"><h2>Tax Tracker · 2026–2047</h2><p>LTCG · 80C/80CCD deductions · Zero tax plan</p></div>
+  <div class="g4">
+    <div class="k grn"><div class="kl">LTCG 2026–28</div><div class="kv grn">~₹18K</div><div class="ks">Zero tax — under limit</div></div>
+    <div class="k gold"><div class="kl">ANNUAL SAVING</div><div class="kv gold">~₹60K</div><div class="ks">80C ₹45K + 80CCD ₹15K</div></div>
+    <div class="k blu"><div class="kl">NPS LUMP 2047</div><div class="kv blu">₹99.8L</div><div class="ks">Completely tax-free</div></div>
+    <div class="k tel"><div class="kl">PPF 2033</div><div class="kv tel">₹23.9L</div><div class="ks">Completely tax-free</div></div>
+  </div>
+  <div class="g2">
+    <div class="pn">
+      <div class="pn-h"><span class="pn-t">LTCG Events Year by Year</span></div>
+      <div class="pn-b">
+        <div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;font-family:'Fira Code',monospace;font-size:9.5px;color:var(--t3);margin-bottom:3px"><span>FY 2026–27 · BAF redemptions</span><span style="color:var(--grn)">~₹1,800</span></div>
+          <div style="height:20px;background:var(--bg3);border-radius:4px;overflow:hidden"><div style="height:100%;width:1.4%;background:var(--grn);display:flex;align-items:center;padding-left:6px"></div></div>
+          <div style="font-family:'Fira Code',monospace;font-size:8px;color:var(--t3);text-align:right;margin-top:2px">1.4% of ₹1.25L limit used</div>
+        </div>
+        <div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;font-family:'Fira Code',monospace;font-size:9.5px;color:var(--t3);margin-bottom:3px"><span>FY 2027–28 · ELSS exit</span><span style="color:var(--grn)">~₹16,000</span></div>
+          <div style="height:20px;background:var(--bg3);border-radius:4px;overflow:hidden"><div style="height:100%;width:12.8%;background:var(--blu);display:flex;align-items:center;padding-left:8px;font-family:'Fira Code',monospace;font-size:9px;color:white">₹16K</div></div>
+          <div style="font-family:'Fira Code',monospace;font-size:8px;color:var(--t3);text-align:right;margin-top:2px">12.8% of ₹1.25L used</div>
+        </div>
+        <div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;font-family:'Fira Code',monospace;font-size:9.5px;color:var(--t3);margin-bottom:3px"><span>FY 2028–29 · FD1 + FD2 MF buys</span><span style="color:var(--grn)">₹0 LTCG</span></div>
+          <div style="height:20px;background:var(--bg3);border-radius:4px;overflow:hidden"></div>
+          <div style="font-family:'Fira Code',monospace;font-size:8px;color:var(--t3);text-align:right;margin-top:2px">Fresh purchases only</div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-family:'Fira Code',monospace;font-size:9.5px;color:var(--t3);margin-bottom:3px"><span>FY 2041–46 · Glide path STPs</span><span style="color:var(--gold)">Managed annually</span></div>
+          <div style="height:20px;background:var(--bg3);border-radius:4px;overflow:hidden"><div style="height:100%;width:35%;background:var(--gold);display:flex;align-items:center;padding-left:8px;font-family:'Fira Code',monospace;font-size:9px;color:#000">Stay ≤₹1.25L/yr</div></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="pn" style="margin-bottom:14px">
+        <div class="pn-h"><span class="pn-t">Annual Deductions</span></div>
+        <div class="pn-b">
+          <div class="sr"><div class="sr-l">80C — PPF ₹1.5L (2026–2032)</div><div class="sr-v gold">₹45K/yr saved</div></div>
+          <div class="sr"><div class="sr-l">80CCD(1B) — NPS ₹50K</div><div class="sr-v gold">₹15K/yr saved</div></div>
+          <div class="sr"><div class="sr-l">Total annual saving (2026–32)</div><div class="sr-v grn">₹60K/yr</div></div>
+          <div class="sr"><div class="sr-l">After PPF matures (2033+)</div><div class="sr-v">₹15K/yr NPS only</div></div>
+          <div class="sr"><div class="sr-l">7yr 80C total + 20yr 80CCD</div><div class="sr-v grn">~₹6.15L total saved</div></div>
+        </div>
+      </div>
+      <div class="pn">
+        <div class="pn-h"><span class="pn-t">NPS Withdrawal Tax (2047)</span></div>
+        <div class="pn-b">
+          <div class="sr"><div class="sr-l">40% lump sum (₹99.8L)</div><div class="sr-v grn">Zero tax ✓</div></div>
+          <div class="sr"><div class="sr-l">60% annuity (₹74.9K/mo)</div><div class="sr-v gold">Taxable as income</div></div>
+          <div class="sr"><div class="sr-l">Annual NPS income</div><div class="sr-v">₹8.99L/yr</div></div>
+          <div class="sr"><div class="sr-l">MF SWP ₹1.25L/mo — LTCG on gains</div><div class="sr-v">12.5% on gains portion</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TIMELINE ══ -->
+<div class="page" id="page-tl">
+  <div class="ph"><h2>Full Timeline · 2026–2047</h2><p>Every action · STP, one-off, and auto clearly marked</p></div>
+  <div style="display:flex;gap:16px;margin-bottom:18px;flex-wrap:wrap">
+    <span style="display:flex;align-items:center;gap:6px;font-family:'Fira Code',monospace;font-size:9px;color:var(--t3)"><span style="width:7px;height:7px;border-radius:50%;background:var(--grn);display:inline-block"></span>Auto/STP</span>
+    <span style="display:flex;align-items:center;gap:6px;font-family:'Fira Code',monospace;font-size:9px;color:var(--t3)"><span style="width:7px;height:7px;border-radius:50%;background:var(--org);display:inline-block"></span>Manual</span>
+    <span style="display:flex;align-items:center;gap:6px;font-family:'Fira Code',monospace;font-size:9px;color:var(--t3)"><span style="width:7px;height:7px;border-radius:50%;background:var(--gold);display:inline-block"></span>One-off</span>
+    <span style="display:flex;align-items:center;gap:6px;font-family:'Fira Code',monospace;font-size:9px;color:var(--t3)"><span style="width:7px;height:7px;border-radius:50%;background:var(--red);display:inline-block"></span>Exit/Redeem</span>
+    <span style="display:flex;align-items:center;gap:6px;font-family:'Fira Code',monospace;font-size:9px;color:var(--t3)"><span style="width:7px;height:7px;border-radius:50%;background:var(--blu);display:inline-block"></span>STP start</span>
+  </div>
+  <div class="pn"><div class="pn-b" style="padding:8px 18px"><div id="d-timeline"></div></div></div>
+</div>
+
+</div><!-- /main -->
+
+<script>
+// ── NAV ──────────────────────────────────────────────────────────────────
+function nav(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sb-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  if (el) el.classList.add('active');
+  else document.querySelectorAll('.sb-item').forEach(n => {
+    if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'" + id + "'")) n.classList.add('active');
+  });
+  document.getElementById('main').scrollTop = 0;
+  if (id === 'corpus') setTimeout(drawCorpus, 60);
+  if (id === 'postret') { setTimeout(drawPost, 60); buildPostTable(); }
+}
+window.addEventListener('resize', () => { drawCorpus(); drawPost(); });
+
+// ── DATA ─────────────────────────────────────────────────────────────────
+const MF_YR  = [0.120,0.140,0.183,0.263,0.421,0.494,0.577,0.672,0.958,1.103,1.268,1.455,1.667,1.908,2.181,2.491,2.843,3.241,3.693,4.205,4.786,5.444];
+const NPS_YR = [0.086,0.106,0.129,0.257,0.296,0.340,0.389,0.442,0.591,0.667,0.751,0.845,0.949,1.065,1.193,1.335,1.493,1.669,1.863,2.080,2.319,2.496];
+const POST_DATA = [
+  [2047,60,6.4423,6.8848],[2048,61,6.8848,7.3591],[2049,62,7.3591,7.8745],[2050,63,7.8745,8.4355],
+  [2051,64,8.4355,9.0465],[2052,65,9.0465,9.7126],[2053,66,9.7126,10.4391],[2054,67,10.4391,11.2319],
+  [2055,68,11.2319,12.0975],[2056,69,12.0975,13.0423],[2057,70,13.0423,14.0735],[2058,71,14.0735,15.1982],
+  [2059,72,15.1982,16.4241],[2060,73,16.4241,17.7597],[2061,74,17.7597,19.2143],[2062,75,19.2143,20.7976],
+  [2063,76,20.7976,22.5204],[2064,77,22.5204,24.3944],[2065,78,24.3944,26.4323],[2066,79,26.4323,28.6473],
+  [2067,80,28.6473,31.0544]
+];
+
+// ── CORPUS CHART ─────────────────────────────────────────────────────────
+function drawCorpus() {
+  const cv = document.getElementById('c-corpus'); if (!cv) return;
+  const ctx = cv.getContext('2d'), dpr = window.devicePixelRatio||1;
+  const W = cv.parentElement.clientWidth-36, H = 270;
+  cv.width=W*dpr; cv.height=H*dpr; cv.style.width=W+'px'; cv.style.height=H+'px'; ctx.scale(dpr,dpr);
+  const pad={l:52,r:18,t:22,b:38}, cW=W-pad.l-pad.r, cH=H-pad.t-pad.b;
+  const maxV=8.5, tot=MF_YR.map((v,i)=>v+NPS_YR[i]);
+  const xS=i=>pad.l+(i/21)*cW, yS=v=>pad.t+cH-(v/maxV)*cH;
+
+  // Grid
+  [0,2,4,6,8].forEach(v=>{
+    ctx.strokeStyle='rgba(255,255,255,0.035)'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(pad.l,yS(v)); ctx.lineTo(pad.l+cW,yS(v)); ctx.stroke();
+    ctx.font='8px Fira Code,monospace'; ctx.fillStyle='#444e68'; ctx.textAlign='right';
+    ctx.fillText(v+'Cr',pad.l-5,yS(v)+3);
+  });
+
+  // SWR line at 4.29 Cr
+  ctx.strokeStyle='rgba(59,201,109,0.35)'; ctx.lineWidth=1; ctx.setLineDash([4,4]);
+  ctx.beginPath(); ctx.moveTo(pad.l,yS(4.29)); ctx.lineTo(pad.l+cW,yS(4.29)); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.font='8px Fira Code,monospace'; ctx.fillStyle='rgba(59,201,109,0.6)'; ctx.textAlign='left';
+  ctx.fillText('MF SWR FLOOR 4.29Cr',pad.l+4,yS(4.29)-4);
+
+  // Area fills
+  const fill=(data,col)=>{
+    ctx.beginPath(); ctx.moveTo(xS(0),yS(0));
+    data.forEach((v,i)=>ctx.lineTo(xS(i),yS(v)));
+    ctx.lineTo(xS(21),yS(0)); ctx.closePath(); ctx.fillStyle=col; ctx.fill();
+  };
+  fill(tot,'rgba(43,191,176,0.07)');
+  fill(MF_YR,'rgba(224,124,56,0.10)');
+  fill(NPS_YR,'rgba(155,104,232,0.08)');
+
+  // Lines
+  const line=(data,col,w=2)=>{
+    ctx.beginPath(); ctx.strokeStyle=col; ctx.lineWidth=w; ctx.lineJoin='round';
+    data.forEach((v,i)=>i===0?ctx.moveTo(xS(i),yS(v)):ctx.lineTo(xS(i),yS(v))); ctx.stroke();
+  };
+  line(tot,'rgba(43,191,176,0.9)',2.5);
+  line(MF_YR,'rgba(224,124,56,0.9)',2);
+  line(NPS_YR,'rgba(155,104,232,0.9)',2);
+
+  // Phase markers
+  [{yr:2028,label:'FD1'},{yr:2029,label:'FD2'},{yr:2033,label:'PPF'},{yr:2041,label:'GLIDE'},{yr:2047,label:'RETIRE'}].forEach(p=>{
+    const i=p.yr-2026;
+    ctx.strokeStyle='rgba(212,168,67,0.2)'; ctx.lineWidth=1; ctx.setLineDash([2,3]);
+    ctx.beginPath(); ctx.moveTo(xS(i),pad.t); ctx.lineTo(xS(i),pad.t+cH); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.font='8px Fira Code,monospace'; ctx.fillStyle='rgba(212,168,67,0.55)'; ctx.textAlign='center';
+    ctx.fillText(p.label,xS(i),pad.t+8);
+  });
+
+  // X labels
+  ctx.font='8px Fira Code,monospace'; ctx.fillStyle='#444e68'; ctx.textAlign='center';
+  [0,2026,2029,2033,2037,2041,2044,2047].forEach(y=>{
+    if(y===0) return; const i=y-2026;
+    ctx.fillText(y,xS(i),H-pad.b+13);
+  });
+}
+
+// ── POST-RETIREMENT CHART ─────────────────────────────────────────────────
+function drawPost() {
+  const cv = document.getElementById('c-post'); if (!cv) return;
+  const ctx = cv.getContext('2d'), dpr = window.devicePixelRatio||1;
+  const W = cv.parentElement.clientWidth-36, H = 250;
+  cv.width=W*dpr; cv.height=H*dpr; cv.style.width=W+'px'; cv.style.height=H+'px'; ctx.scale(dpr,dpr);
+  const pad={l:54,r:16,t:22,b:38}, cW=W-pad.l-pad.r, cH=H-pad.t-pad.b;
+  const corpus=POST_DATA.map(d=>d[2]);
+  const cumWd=POST_DATA.map((_,i)=>(i+1)*0.15);
+  const maxV=33;
+  const xS=i=>pad.l+(i/(POST_DATA.length-1))*cW, yS=v=>pad.t+cH-(v/maxV)*cH;
+
+  [0,5,10,15,20,25,30].forEach(v=>{
+    ctx.strokeStyle='rgba(255,255,255,0.03)'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(pad.l,yS(v)); ctx.lineTo(pad.l+cW,yS(v)); ctx.stroke();
+    ctx.font='8px Fira Code,monospace'; ctx.fillStyle='#444e68'; ctx.textAlign='right';
+    ctx.fillText(v===0?'0':v+'Cr',pad.l-5,yS(v)+3);
+  });
+
+  // Area
+  ctx.beginPath(); ctx.moveTo(xS(0),yS(0));
+  corpus.forEach((v,i)=>ctx.lineTo(xS(i),yS(v)));
+  ctx.lineTo(xS(corpus.length-1),yS(0)); ctx.closePath();
+  ctx.fillStyle='rgba(43,191,176,0.07)'; ctx.fill();
+
+  // Corpus line
+  ctx.beginPath(); ctx.strokeStyle='rgba(43,191,176,0.9)'; ctx.lineWidth=2.5; ctx.lineJoin='round';
+  corpus.forEach((v,i)=>i===0?ctx.moveTo(xS(i),yS(v)):ctx.lineTo(xS(i),yS(v))); ctx.stroke();
+
+  // Cumulative withdrawn dashed
+  ctx.beginPath(); ctx.strokeStyle='rgba(224,82,82,0.65)'; ctx.lineWidth=1.5; ctx.setLineDash([5,4]);
+  cumWd.forEach((v,i)=>i===0?ctx.moveTo(xS(i),yS(v)):ctx.lineTo(xS(i),yS(v))); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Dots at key ages
+  [0,10,20].forEach(i=>{
+    ctx.beginPath(); ctx.arc(xS(i),yS(corpus[i]),4,0,Math.PI*2);
+    ctx.fillStyle='rgba(43,191,176,1)'; ctx.fill();
+    ctx.font='8px Fira Code,monospace'; ctx.fillStyle='rgba(43,191,176,0.8)'; ctx.textAlign='center';
+    ctx.fillText('₹'+corpus[i].toFixed(1)+'Cr',xS(i),yS(corpus[i])-9);
+  });
+
+  // X labels
+  ctx.font='8px Fira Code,monospace'; ctx.fillStyle='#444e68'; ctx.textAlign='center';
+  POST_DATA.filter((_,i)=>i%4===0).forEach(d=>{
+    const i=d[0]-2047;
+    ctx.fillText(d[0]+' ('+d[1]+')',xS(i),H-pad.b+13);
+  });
+}
+
+// ── CORPUS TABLE ──────────────────────────────────────────────────────────
+function buildCorpusTable() {
+  const ms={2028:'FD1 Matures',2029:'FD2 → NPS+MF',2033:'PPF → Deploy',2041:'Glide Path',2047:'Withdrawal'};
+  let h='<thead><tr><th>YEAR</th><th>AGE</th><th>MF CORPUS</th><th>NPS CORPUS</th><th>TOTAL</th><th>MILESTONE</th></tr></thead><tbody>';
+  MF_YR.forEach((v,i)=>{
+    const yr=2026+i,age=39+i,tot=(v+NPS_YR[i]).toFixed(3);
+    const m=ms[yr]||'';
+    h+=`<tr style="${m?'background:rgba(212,168,67,0.04)':''}">
+      <td class="mono">${yr}</td><td class="mono">${age}</td>
+      <td class="amt" style="color:var(--org)">₹${v.toFixed(2)} Cr</td>
+      <td class="amt" style="color:var(--pur)">₹${NPS_YR[i].toFixed(2)} Cr</td>
+      <td class="amt" style="color:var(--tel)">₹${tot} Cr</td>
+      <td style="color:var(--gold);font-family:'Fira Code',monospace;font-size:9px">${m}</td></tr>`;
+  });
+  h+='</tbody>';
+  document.getElementById('t-corpus').innerHTML=h;
+}
+
+// ── PHASE 1 TABLE ─────────────────────────────────────────────────────────
+function buildPh1Table() {
+  const rows = [
+    {ph:'APR 2026 · SETUP'},
+    {d:'Apr 1, 2026',a:'Set up STP (auto)',f:'Tata BAF',t:'Tata Smallcap',amt:'₹10,000/mo',type:'auto',note:'Set once, runs 12mo'},
+    {d:'Apr 5, 2026',a:'Redeem BAF (first)',f:'Tata BAF',t:'Bank',amt:'₹15,000',type:'manual',note:'5th of month'},
+    {d:'Apr 8, 2026',a:'Invest Motilal Midcap',f:'Bank',t:'Motilal Midcap',amt:'₹15,000',type:'manual',note:'8th of month'},
+    {ph:'MAY 2026 – MAR 2027 · REPEAT × 11'},
+    {d:'5th each month',a:'Redeem BAF',f:'Tata BAF',t:'Bank',amt:'₹15,000',type:'manual',note:'11 more times'},
+    {d:'8th each month',a:'Invest Motilal Midcap',f:'Bank',t:'Motilal Midcap',amt:'₹15,000',type:'manual',note:'11 more times'},
+    {d:'Auto on 5th',a:'STP continues',f:'Tata BAF',t:'Tata Smallcap',amt:'₹10,000/mo',type:'auto',note:'Auto till Mar'},
+    {ph:'MAR 2027 · TRANSITION'},
+    {d:'Mar 31, 2027',a:'Stop STP + manual BAF',f:'—',t:'—',amt:'~₹40K left',type:'oneoff',note:'Leave residual'},
+    {d:'Mar 2027',a:'Cancel ₹5K Nifty50 SIP',f:'UTI',t:'—',amt:'Cancelled',type:'exit',note:'Effective Apr 1'},
+    {ph:'APR 2027 · NEW SIP STRUCTURE'},
+    {d:'Apr 1, 2027',a:'Start Nifty50 SIPs (₹6K stepup + ₹2K fixed)',f:'Bank',t:'UTI Nifty50',amt:'₹8,000/mo',type:'auto',note:'5% step-up/yr'},
+    {d:'Apr 1, 2027',a:'Start MC150 Index SIPs (₹4K stepup + ₹1.5K fixed)',f:'Bank',t:'Motilal MC150',amt:'₹5,500/mo',type:'auto',note:'5% step-up/yr'},
+    {d:'Apr 2026+',a:'NPS contribution (each April)',f:'Bank',t:'NPS Tier 1',amt:'₹1,00,000',type:'oneoff',note:'80CCD(1B)'},
+    {d:'Apr 2026+',a:'PPF contribution (each April)',f:'Bank',t:'PPF',amt:'₹1,50,000',type:'oneoff',note:'80C deduction'},
+    {ph:'OCT 2027 · ELSS EXIT (ONE-OFF, NOT STP)'},
+    {d:'Oct 1, 2027',a:'Redeem Quant ELSS (full)',f:'Quant ELSS',t:'Bank',amt:'~₹73,000',type:'exit',note:'LTCG ₹16K · ₹0 tax'},
+    {d:'Oct 7–8, 2027',a:'Invest → UTI Nifty50 lump sum',f:'Bank',t:'UTI Nifty50',amt:'~₹73,000',type:'oneoff',note:'Not STP — small amt'},
+    {ph:'AUG 2028 · FD1 MATURITY (ONE-OFF)'},
+    {d:'Aug 2028',a:'Emergency Fund — keep separate',f:'FD1 ₹13.58L',t:'Liquid/FD',amt:'₹10,00,000',type:'ef',note:'DO NOT invest this'},
+    {d:'Aug 2028',a:'Nifty50 lump sum — not STP',f:'FD1 balance',t:'UTI Nifty50',amt:'₹3,58,000',type:'oneoff',note:'Not STP — ok size'},
+  ];
+  const typeC={auto:'p-grn',manual:'p-org',oneoff:'p-gold',exit:'p-red',ef:''};
+  const typeL={auto:'AUTO',manual:'MANUAL',oneoff:'ONE-OFF',exit:'REDEEM',ef:'EF ONLY'};
+  let h='';
+  rows.forEach(r=>{
+    if(r.ph){h+=`<tr class="ph-row"><td colspan="7">── ${r.ph}</td></tr>`;return;}
+    h+=`<tr><td class="mono" style="white-space:nowrap">${r.d}</td><td style="font-size:11.5px">${r.a}</td><td class="mono">${r.f}</td><td class="mono">${r.t}</td><td class="amt amt-gold">${r.amt}</td><td><span class="pill ${typeC[r.type]||''}">${typeL[r.type]||''}</span></td><td style="font-size:10px;color:var(--t3)">${r.note}</td></tr>`;
+  });
+  document.getElementById('t-ph1').innerHTML=h;
+}
+
+// ── PPF TABLE ─────────────────────────────────────────────────────────────
+function buildPPFTable() {
+  const t=document.getElementById('t-ppf'); if(!t) return;
+  let c=613000,cum=613000,h='<thead><tr><th>YEAR</th><th>CONTRIBUTION</th><th>CUMULATIVE</th><th>EST. CORPUS</th></tr></thead><tbody>';
+  [2026,2027,2028,2029,2030,2031,2032].forEach(yr=>{
+    c=c*1.071+150000; cum+=150000;
+    h+=`<tr><td class="mono">${yr}</td><td class="amt amt-blu">₹1,50,000</td><td class="mono">₹${(cum/100000).toFixed(2)}L</td><td class="amt amt-gold">~₹${(c/100000).toFixed(1)}L</td></tr>`;
+  });
+  h+=`<tr style="background:rgba(59,201,109,0.04)"><td class="mono" style="color:var(--grn)">Apr 2033</td><td class="amt amt-grn">MATURITY</td><td></td><td class="amt amt-grn">~₹23.9L</td></tr>`;
+  h+='</tbody>'; t.innerHTML=h;
+}
+
+// ── POST-RETIREMENT TABLE ─────────────────────────────────────────────────
+function buildPostTable() {
+  const t=document.getElementById('t-post'); if(!t||t.innerHTML) return;
+  const ms={2052:'Crosses ₹10 Cr',2057:'2.1× start',2067:'4.2× start'};
+  let h='<thead><tr><th>YEAR</th><th>AGE</th><th>START CORPUS</th><th>RETURN 9.2%</th><th>MF WITHDRAWN</th><th>END CORPUS</th><th>NET GAIN</th><th>NOTE</th></tr></thead><tbody>';
+  POST_DATA.forEach(([yr,age,start,end])=>{
+    const ret=start*0.092, wd=0.15, net=ret-wd;
+    const m=ms[yr]||'';
+    h+=`<tr style="${m?'background:rgba(212,168,67,0.04)':''}">
+      <td class="mono">${yr}</td><td class="mono">${age}</td>
+      <td class="amt amt-tel">₹${start.toFixed(3)} Cr</td>
+      <td class="amt amt-grn">+₹${(ret).toFixed(2)} Cr</td>
+      <td class="amt amt-red">−₹${wd.toFixed(2)} Cr</td>
+      <td class="amt">₹${end.toFixed(3)} Cr</td>
+      <td class="mono" style="color:var(--grn)">+₹${(net*100).toFixed(1)}L</td>
+      <td style="font-family:'Fira Code',monospace;font-size:8.5px;color:var(--gold)">${m}</td></tr>`;
+  });
+  h+='</tbody>'; t.innerHTML=h;
+}
+
+// ── GLIDE PATH ────────────────────────────────────────────────────────────
+function buildGlide() {
+  const gd=document.getElementById('d-glide'); if(!gd) return;
+  const data=[{yr:2041,eq:80,hyb:12,dbt:8},{yr:2042,eq:70,hyb:18,dbt:12},{yr:2043,eq:60,hyb:22,dbt:18},{yr:2044,eq:50,hyb:27,dbt:23},{yr:2045,eq:40,hyb:30,dbt:30},{yr:2046,eq:30,hyb:32,dbt:38},{yr:2047,eq:20,hyb:30,dbt:50}];
+  gd.innerHTML=data.map(d=>`<div class="gl-row">
+    <div class="gl-yr">${d.yr}</div>
+    <div class="gl-bar">
+      <div style="width:${d.eq}%;background:linear-gradient(90deg,var(--red),var(--org));height:100%"></div>
+      <div style="width:${d.hyb}%;background:linear-gradient(90deg,var(--gold),var(--gold2));height:100%"></div>
+      <div style="width:${d.dbt}%;background:linear-gradient(90deg,var(--blu),var(--tel));height:100%"></div>
+    </div>
+    <div class="gl-labels">
+      <span class="gl-lbl" style="color:var(--org)">${d.eq}% Eq</span>
+      <span class="gl-lbl" style="color:var(--gold)">${d.hyb}% Hyb</span>
+      <span class="gl-lbl" style="color:var(--blu)">${d.dbt}% Dbt</span>
+    </div>
+  </div>`).join('');
+}
+
+// ── CRASH GLIDE TABLE ─────────────────────────────────────────────────────
+function buildCrashGlide() {
+  const t=document.getElementById('t-crash-glide'); if(!t) return;
+  const d=[{yr:2041,eq:80,mf:2.491},{yr:2042,eq:70,mf:2.843},{yr:2043,eq:60,mf:3.241},{yr:2044,eq:50,mf:3.693},{yr:2045,eq:40,mf:4.205},{yr:2046,eq:30,mf:4.786}];
+  t.innerHTML=d.map(r=>{
+    const hit=r.mf*(r.eq/100*0.60+0.25*0.25+0.02*(1-r.eq/100-0.25));
+    const after=r.mf-hit; const pct=Math.round(hit/r.mf*100);
+    const ok=pct<40;
+    return `<tr><td class="mono">${r.yr}</td><td class="mono" style="color:var(--org)">${r.eq}%</td><td class="amt" style="color:var(--tel)">₹${r.mf.toFixed(2)} Cr</td><td class="amt" style="color:var(--red)">−₹${hit.toFixed(2)} Cr</td><td class="mono" style="color:${ok?'var(--gold)':'var(--red)'}">${pct}% drop → ₹${after.toFixed(2)} Cr</td></tr>`;
+  }).join('');
+}
+
+// ── TIMELINE ──────────────────────────────────────────────────────────────
+function buildTimeline() {
+  const events = [
+    {yr:'APR 2026',phase:'PHASE 1 START',items:[
+      {t:'auto',x:'Set up STP: Tata BAF → Tata Smallcap (12 months)',a:'₹10K/mo AUTO'},
+      {t:'manual',x:'Start monthly BAF→Midcap: Redeem ₹15K on 5th, invest 8th',a:'₹15K/mo MANUAL'},
+      {t:'auto',x:'Nifty50 SIP continues',a:'₹5K/mo'},
+      {t:'oneoff',x:'NPS annual contribution via eNPS',a:'₹1L ONE-OFF'},
+      {t:'oneoff',x:'PPF annual contribution',a:'₹1.5L ONE-OFF'},
+    ]},
+    {yr:'MAY–DEC 2026',phase:null,items:[
+      {t:'auto',x:'STP auto: BAF → Tata Smallcap monthly',a:'₹10K/mo'},
+      {t:'manual',x:'5th: Redeem BAF · 8th: Invest Motilal Midcap (×8)',a:'₹15K each'},
+    ]},
+    {yr:'MAR 2027',phase:null,items:[
+      {t:'oneoff',x:'Stop STP + manual BAF transfers. Leave ₹40K residual.',a:''},
+      {t:'exit',x:'Cancel ₹5K UTI Nifty50 SIP (effective Apr 1)',a:'CANCEL'},
+    ]},
+    {yr:'APR 2027',phase:'NEW SIP STRUCTURE',items:[
+      {t:'auto',x:'Start UTI Nifty50: ₹6K step-up + ₹2K fixed (20yr)',a:'₹8K/mo AUTO'},
+      {t:'auto',x:'Start Motilal MC150 Index: ₹4K step-up + ₹1.5K fixed (20yr)',a:'₹5.5K/mo AUTO'},
+      {t:'oneoff',x:'NPS annual contribution (year 2 of 20)',a:'₹1L eNPS'},
+      {t:'oneoff',x:'PPF annual contribution (year 2 of 7)',a:'₹1.5L'},
+    ]},
+    {yr:'OCT 2027',phase:'ELSS EXIT — ONE-OFF (NOT STP)',items:[
+      {t:'exit',x:'Oct 1: Redeem full Quant ELSS. LTCG ~₹16K — zero tax.',a:'~₹73K'},
+      {t:'oneoff',x:'Oct 7–8: Lump sum into UTI Nifty50 (not STP — small amount)',a:'~₹73K'},
+    ]},
+    {yr:'APR 2028',phase:null,items:[
+      {t:'auto',x:'SIP step-up 5% kicks in → ₹14K/mo total',a:'₹14K/mo'},
+      {t:'oneoff',x:'NPS annual contribution (year 3 of 20)',a:'₹1L eNPS'},
+      {t:'oneoff',x:'PPF annual contribution (year 3 of 7)',a:'₹1.5L'},
+    ]},
+    {yr:'AUG 2028',phase:'FD1 MATURITY — ONE-OFF',items:[
+      {t:'ef',x:'₹10L → Emergency Fund (liquid/FD — separate, never invest)',a:'₹10L EF'},
+      {t:'oneoff',x:'₹3.58L → UTI Nifty50 lump sum (not STP — moderate size)',a:'₹3.58L'},
+    ]},
+    {yr:'JAN 2029',phase:'FD2 MATURITY — ALL ONE-OFF',items:[
+      {t:'oneoff',x:'₹10L → NPS Tier 1 via eNPS lump sum (not STP)',a:'₹10L NPS'},
+      {t:'oneoff',x:'₹5.61L → UTI Nifty50 lump sum (not STP — ok at this size)',a:'₹5.61L'},
+      {t:'oneoff',x:'₹3.74L → Motilal MC150 Index lump sum (not STP)',a:'₹3.74L'},
+    ]},
+    {yr:'APR 2029–2032',phase:'PHASE 3: FULLY PASSIVE',items:[
+      {t:'auto',x:'SIPs ₹13.5K+/mo auto with 5% annual step-up',a:'AUTO'},
+      {t:'oneoff',x:'NPS ₹1L each April (years 4–7 of 20)',a:'₹1L/yr eNPS'},
+      {t:'oneoff',x:'PPF ₹1.5L each April (Apr 29, 30, 31, 32)',a:'₹1.5L/yr'},
+    ]},
+    {yr:'APR 2033',phase:'PPF MATURITY — NPS ONE-OFF + STP 6MO',items:[
+      {t:'oneoff',x:'₹8L → NPS Tier 1 via eNPS lump sum (not STP)',a:'₹8L NPS'},
+      {t:'oneoff',x:'₹15.9L → park in liquid fund (holding for STP)',a:'₹15.9L park'},
+    ]},
+    {yr:'APR–SEP 2033',phase:'STP 6 MONTHS',items:[
+      {t:'blu',x:'STP: Liquid → UTI Nifty50 (60%) · 6 months',a:'₹1.59L/mo × 6'},
+      {t:'blu',x:'STP: Liquid → Motilal MC150 (40%) · 6 months',a:'₹1.06L/mo × 6'},
+    ]},
+    {yr:'APR 2034–2040',phase:'PASSIVE',items:[
+      {t:'auto',x:'SIPs continue auto with step-up',a:'AUTO'},
+      {t:'oneoff',x:'NPS ₹1L each April',a:'₹1L/yr'},
+    ]},
+    {yr:'APR 2041',phase:'PHASE 5: GLIDE PATH — STP EACH YEAR',items:[
+      {t:'blu',x:'Annual STP: equity → BAF/Liquid (~10% of equity corpus, 4–6mo)',a:'~₹25–30L/yr'},
+      {t:'auto',x:'SIPs + NPS continue',a:'AUTO'},
+    ]},
+    {yr:'APR 2042–2046',phase:null,items:[
+      {t:'blu',x:'Annual glide STP continues (equity% reducing each year)',a:'~10%/yr'},
+      {t:'auto',x:'Build Bucket 1 (₹30L liquid) and Bucket 2 (₹70L BAF)',a:'Ongoing'},
+      {t:'auto',x:'Last NPS: Apr 2046. Last SIP: Apr 2046 (20yr complete)',a:'FINAL YEAR'},
+    ]},
+    {yr:'APR 2047',phase:'PHASE 6: WITHDRAWAL',items:[
+      {t:'oneoff',x:'NPS exit: 40% lump sum (₹99.8L tax-free) + 60% annuity',a:'₹2.50 Cr'},
+      {t:'oneoff',x:'₹30L → Liquid (Bucket 1) · ₹69.8L → BAF (Bucket 2)',a:'₹99.8L'},
+      {t:'auto',x:'NPS annuity starts automatically',a:'₹74.9K/mo'},
+      {t:'auto',x:'SWP activated: BAF → ₹1,25,100/mo (NPS+SWP = ₹2L exact)',a:'₹1.25L/mo SWP'},
+    ]},
+  ];
+  const dc={auto:'var(--grn)',manual:'var(--org)',oneoff:'var(--gold)',exit:'var(--red)',ef:'var(--t3)',blu:'var(--blu)'};
+  const tp={auto:'p-grn',manual:'p-org',oneoff:'p-gold',exit:'p-red',ef:'',blu:'p-blu'};
+  const tl={auto:'AUTO',manual:'MANUAL',oneoff:'ONE-OFF',exit:'REDEEM',ef:'EF',blu:'STP'};
+  let h='';
+  events.forEach(ev=>{
+    h+=`<div class="tl-gh"><div class="tl-yr">${ev.yr}</div><div class="tl-ln"></div>${ev.phase?`<span class="pill p-gold" style="font-size:7.5px;white-space:nowrap">${ev.phase}</span>`:''}</div>`;
+    ev.items.forEach(it=>{
+      h+=`<div class="tl-ev">
+        <div class="tl-dot" style="background:${dc[it.t]||'var(--t3)'}"></div>
+        <div class="tl-txt">${it.x}</div>
+        ${it.a?`<div class="tl-amt">${it.a}</div>`:''}
+        <span class="tl-tag ${tp[it.t]||''}">${tl[it.t]||''}</span>
+      </div>`;
+    });
+  });
+  document.getElementById('d-timeline').innerHTML=h;
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  buildCorpusTable();
+  buildPh1Table();
+  buildPPFTable();
+  buildGlide();
+  buildCrashGlide();
+  buildTimeline();
+  setTimeout(drawCorpus, 100);
+});
+</script>
+</body>
+</html>
