@@ -1445,7 +1445,9 @@ function saveUserRole(userId) {
     }
   }
 
-  renderAdminUsers();
+  if (window._sha_db && typeof loadUsersFromFirestore === 'function') {
+    loadUsersFromFirestore();
+  } else { renderAdminUsers(); }
   if (typeof renderAdminStats === 'function') renderAdminStats();
 }
 
@@ -2064,9 +2066,11 @@ function handleCreateClass() {
     }
 
     var sdkApp       = 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js';
+    var sdkAuth      = 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js';
     var sdkFirestore = 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js';
 
     loadScript(sdkApp, function() {
+      loadScript(sdkAuth, function() {
       loadScript(sdkFirestore, function() {
         if (!window.firebase) return;
         try {
@@ -2078,9 +2082,13 @@ function handleCreateClass() {
 
         // Use window._sha_db so it's reachable across all closures
         window._sha_db = window.firebase.firestore();
-        console.log('SHA: Firestore ready, loading users...');
-        // Call loadUsersFromFirestore which reads window._sha_db internally
+        if (!_auth) {
+          _auth = window.firebase.auth();
+          _auth.setPersistence(window.firebase.auth.Auth.Persistence.NONE).catch(function(){});
+        }
+        console.log('SHA: Firestore + Auth ready!');
         if (typeof loadUsersFromFirestore === 'function') loadUsersFromFirestore();
+      });
       });
     });
   })();
