@@ -1871,9 +1871,8 @@ function handleCreateClass() {
   // ── Register user in admin list ────────────────────────────────────────────
   // ── Firestore: load all users into adminUsers ────────────────────────────────
   window.loadUsersFromFirestore = function loadUsersFromFirestore() {
-    var db = _db || window._sha_db;
-    if (!db) return;
-    db.collection('users').get()
+    if (!window._sha_db) { setTimeout(window.loadUsersFromFirestore, 800); return; }
+    window._sha_db.collection('users').get()
       .then(function(snapshot) {
         adminUsers = [];
         snapshot.forEach(function(doc) {
@@ -1899,10 +1898,9 @@ function handleCreateClass() {
 
   // ── Firestore: save/update a user doc (email is the doc ID) ──────────────────
   window.saveUserToFirestore = function saveUserToFirestore(user) {
-    var db = _db || window._sha_db;
-    if (!db) return;
+    if (!window._sha_db) return;
     var docId = (user.email || '').toLowerCase().replace(/[^a-z0-9]/g, '_');
-    db.collection('users').doc(docId).set({
+    window._sha_db.collection('users').doc(docId).set({
       name:        user.name        || '',
       email:       user.email       || '',
       role:        user.role        || 'User',
