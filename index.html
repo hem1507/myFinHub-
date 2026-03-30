@@ -2131,12 +2131,8 @@ function handleCreateClass() {
           } catch(e) { /* Already initialized */ }
 
           _auth = window.firebase.auth();
-          // Reuse existing Firestore if already initialised by eager load
-          if (!_db && !window._sha_db) {
-            _db = window.firebase.firestore();
-            window._sha_db = _db;
-          } else {
-            _db = _db || window._sha_db;
+          if (!window._sha_db) {
+            window._sha_db = window.firebase.firestore();
           }
 
           // Prevent Firebase from auto-restoring sessions on page load
