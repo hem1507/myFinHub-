@@ -1455,8 +1455,10 @@ function saveUserRole(userId) {
   }
   if (window._sha_db && typeof window.loadUsersFromFirestore === "function") {
     window.loadUsersFromFirestore();
+  } else {   if (window._sha_db && typeof window.loadUsersFromFirestore === 'function') {
+    window.loadUsersFromFirestore();
   } else { renderAdminUsers(); }
-  if (typeof renderAdminStats === "function") renderAdminStats();
+  if (typeof renderAdminStats === 'function') renderAdminStats();
 }
 
 // updateUserRole replaced by onRoleSelectChange + saveUserRole above
@@ -2215,37 +2217,28 @@ function handleCreateClass() {
     if (password.length < 6) { window.showAuthToast('Password must be at least 6 characters.', 'error'); return; }
 
     loadFirebaseSDK(function(fb) {
-      // Step 1: Try sign-in first
-      // Firebase v9 returns auth/invalid-login-credentials for both
-      // wrong-password AND user-not-found — so we try sign-in first,
-      // then createUser, and use email-already-in-use to detect wrong password.
+            // Try sign-in; if fails try create; email-already-in-use = wrong password
       _auth.signInWithEmailAndPassword(email, password)
         .then(function(r) {
           onSignedIn(r.user.displayName || '', r.user.email, r.user.photoURL || '', role);
         })
-        .catch(function(signInErr) {
-          // Try to create account (works for new users)
+        .catch(function() {
           _auth.createUserWithEmailAndPassword(email, password)
             .then(function(r) {
               window.showAuthToast('Account created! Welcome.', 'success');
               onSignedIn('', r.user.email, '', role);
             })
-            .catch(function(createErr) {
-              var c2 = createErr.code || '';
-              if (c2 === 'auth/email-already-in-use') {
-                // User exists but sign-in failed → wrong password
+            .catch(function(e2) {
+              if (e2.code === 'auth/email-already-in-use') {
                 window.showAuthToast('Incorrect password. Please try again.', 'error');
-              } else if (c2 === 'auth/weak-password') {
+              } else if (e2.code === 'auth/weak-password') {
                 window.showAuthToast('Password must be at least 6 characters.', 'error');
-              } else if (c2 === 'auth/invalid-email') {
-                window.showAuthToast('Please enter a valid email address.', 'error');
               } else {
-                window.showAuthToast('Sign-in error: ' + c2, 'error');
+                window.showAuthToast('Sign-in error: ' + e2.code, 'error');
               }
             });
         });
     });
-  }
 
   // ── PUBLIC API ─────────────────────────────────────────────────────────────
 
