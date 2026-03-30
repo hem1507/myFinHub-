@@ -1870,7 +1870,7 @@ function handleCreateClass() {
 
   // ── Register user in admin list ────────────────────────────────────────────
   // ── Firestore: load all users into adminUsers ────────────────────────────────
-  function loadUsersFromFirestore() {
+  window.loadUsersFromFirestore = function loadUsersFromFirestore() {
     var db = _db || window._sha_db;
     if (!db) return;
     db.collection('users').get()
@@ -1898,7 +1898,7 @@ function handleCreateClass() {
   }
 
   // ── Firestore: save/update a user doc (email is the doc ID) ──────────────────
-  function saveUserToFirestore(user) {
+  window.saveUserToFirestore = function saveUserToFirestore(user) {
     var db = _db || window._sha_db;
     if (!db) return;
     var docId = (user.email || '').toLowerCase().replace(/[^a-z0-9]/g, '_');
