@@ -2201,16 +2201,18 @@ function handleCreateClass() {
     if (password.length < 6) { window.showAuthToast('Password must be at least 6 characters.', 'error'); return; }
 
     loadFirebaseSDK(function(fb) {
-      // Try create first → if email-already-in-use → user exists → try signIn
+      // Create-first approach: reliable for Firebase v9
+      // Try create → success = new user
+      // email-already-in-use = user exists → try signIn
+      // signIn fails = wrong password
       _auth.createUserWithEmailAndPassword(email, password)
         .then(function(r) {
-          // New user created successfully
           window.showAuthToast('Account created! Welcome to SH Analytics Academy.', 'success');
           onSignedIn('', r.user.email, '', role);
         })
         .catch(function(createErr) {
           if (createErr.code === 'auth/email-already-in-use') {
-            // User exists — try sign in with their password
+            // User exists — sign in
             _auth.signInWithEmailAndPassword(email, password)
               .then(function(r) {
                 onSignedIn(r.user.displayName || '', r.user.email, r.user.photoURL || '', role);
