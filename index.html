@@ -1445,17 +1445,7 @@ function saveUserRole(userId) {
     }
   }
 
-  if (window._sha_db && typeof loadUsersFromFirestore === 'function') {
-    loadUsersFromFirestore();
-  } else { renderAdminUsers(); }
-  if (typeof renderAdminStats === 'function') renderAdminStats();
-  // Reload from Firestore to confirm saved data
   if (window._sha_db && typeof window.loadUsersFromFirestore === 'function') {
-    setTimeout(window.loadUsersFromFirestore, 500);
-  }
-  if (window._sha_db && typeof window.loadUsersFromFirestore === "function") {
-    window.loadUsersFromFirestore();
-  } else {   if (window._sha_db && typeof window.loadUsersFromFirestore === 'function') {
     window.loadUsersFromFirestore();
   } else { renderAdminUsers(); }
   if (typeof renderAdminStats === 'function') renderAdminStats();
@@ -2076,11 +2066,9 @@ function handleCreateClass() {
     }
 
     var sdkApp       = 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js';
-    var sdkAuth      = 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js';
     var sdkFirestore = 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js';
 
     loadScript(sdkApp, function() {
-      loadScript(sdkAuth, function() {
       loadScript(sdkFirestore, function() {
         if (!window.firebase) return;
         try {
@@ -2092,13 +2080,9 @@ function handleCreateClass() {
 
         // Use window._sha_db so it's reachable across all closures
         window._sha_db = window.firebase.firestore();
-        if (!_auth) {
-          _auth = window.firebase.auth();
-          _auth.setPersistence(window.firebase.auth.Auth.Persistence.NONE).catch(function(){});
-        }
-        console.log('SHA: Firestore + Auth ready!');
+        console.log('SHA: Firestore ready, loading users...');
+        // Call loadUsersFromFirestore which reads window._sha_db internally
         if (typeof loadUsersFromFirestore === 'function') loadUsersFromFirestore();
-      });
       });
     });
   })();
@@ -2217,7 +2201,9 @@ function handleCreateClass() {
     if (password.length < 6) { window.showAuthToast('Password must be at least 6 characters.', 'error'); return; }
 
     loadFirebaseSDK(function(fb) {
-            // Try sign-in; if fails try create; email-already-in-use = wrong password
+      // Firebase v9: invalid-login-credentials for both wrong-pw & user-not-found
+      // Strategy: try signIn → if any failure → try createUser
+      // If createUser fails with email-already-in-use → wrong password
       _auth.signInWithEmailAndPassword(email, password)
         .then(function(r) {
           onSignedIn(r.user.displayName || '', r.user.email, r.user.photoURL || '', role);
@@ -2225,7 +2211,7 @@ function handleCreateClass() {
         .catch(function() {
           _auth.createUserWithEmailAndPassword(email, password)
             .then(function(r) {
-              window.showAuthToast('Account created! Welcome.', 'success');
+              window.showAuthToast('Account created! Welcome to SH Analytics Academy.', 'success');
               onSignedIn('', r.user.email, '', role);
             })
             .catch(function(e2) {
@@ -2233,12 +2219,15 @@ function handleCreateClass() {
                 window.showAuthToast('Incorrect password. Please try again.', 'error');
               } else if (e2.code === 'auth/weak-password') {
                 window.showAuthToast('Password must be at least 6 characters.', 'error');
+              } else if (e2.code === 'auth/invalid-email') {
+                window.showAuthToast('Please enter a valid email address.', 'error');
               } else {
                 window.showAuthToast('Sign-in error: ' + e2.code, 'error');
               }
             });
         });
     });
+  }
 
   // ── PUBLIC API ─────────────────────────────────────────────────────────────
 
